@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">azureestate</string>
+    <string name="default_web_client_id">YOUR_WEB_CLIENT_ID_HERE</string>
+    <string name="groq_api_key">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</string>
+</resources>

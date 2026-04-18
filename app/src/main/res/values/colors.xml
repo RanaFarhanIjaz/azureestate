@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand -->
+    <color name="teal_primary">#3DB8A8</color>
+    <color name="teal_light">#4DC9B8</color>
+    <color name="navy_dark">#0D1B2A</color>
+    <color name="navy_medium">#0A1929</color>
+    <color name="navy_accent">#1A3558</color>
+
+
+    <!-- Text -->
+    <color name="text_primary">#0D1B2A</color>
+    <color name="text_secondary">#7A8899</color>
+    <color name="text_hint">#AABBCC</color>
+    <color name="text_light">#88B0C8</color>
+    <color name="text_muted">#2A5070</color>
+
+    <!-- Backgrounds -->
+    <color name="bg_page">#F0F2F5</color>
+    <color name="bg_card">#FFFFFF</color>
+    <color name="bg_input">#F4F6F8</color>
+
+    <!-- Dividers -->
+    <color name="divider">#E8EBF0</color>
+    <color name="transparent">#00000000</color>
+    
+    <!-- Bottom Navigation -->
+    <color name="bottom_nav_selected">#3DB8A8</color>
+    <color name="bottom_nav_unselected">#7A8899</color>
+</resources>

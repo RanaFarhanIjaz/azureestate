@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="58dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- Icon container (tinted bg square) -->
+    <FrameLayout
+        android:id="@+id/iconContainer"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/profile_icon_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/ivRowIcon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_house"
+            android:tint="#3DB8A8"/>
+    </FrameLayout>
+
+    <!-- Label -->
+    <TextView
+        android:id="@+id/tvRowLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Label"
+        android:textColor="#0D1B2A"
+        android:textSize="14sp"
+        android:fontFamily="@font/montserrat_medium"
+        android:layout_marginStart="14dp"
+        app:layout_constraintStart_toEndOf="@+id/iconContainer"
+        app:layout_constraintEnd_toStartOf="@+id/tvRowBadge"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <!-- Optional badge (e.g. count) -->
+    <TextView
+        android:id="@+id/tvRowBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"
+        android:fontFamily="@font/montserrat_bold"
+        android:background="@drawable/badge_teal_pill"
+        android:paddingStart="7dp"
+        android:paddingEnd="7dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:visibility="gone"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/ivChevron"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <!-- Chevron -->
+    <ImageView
+        android:id="@+id/ivChevron"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ic_chevron_right"
+        android:tint="#C8D4E0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

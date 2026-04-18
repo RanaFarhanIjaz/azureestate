@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="default_budget">
+        <item>500000</item>
+        <item>5000000</item>
+    </array>
+
+    <array name="default_price_range">
+        <item>250000</item>
+        <item>3500000</item>
+    </array>
+
+    <array name="default_area_range">
+        <item>500</item>
+        <item>10000</item>
+    </array>
+</resources>

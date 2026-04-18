@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F6F8"
+    android:overScrollMode="never"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="90dp">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!--  HERO HEADER — dark navy gradient           -->
+        <!-- ═══════════════════════════════════════════ -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/profile_hero_bg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="22dp"
+                android:paddingEnd="22dp"
+                android:paddingTop="52dp"
+                android:paddingBottom="36dp">
+
+                <!-- Top row: title + settings -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="28dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My Profile"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/playfair_display_bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/ivSettings"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:src="@drawable/ic_settings"
+                        android:tint="#FFFFFF"
+                        android:background="@drawable/icon_btn_bg_dark"
+                        android:padding="9dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Avatar + info row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <!-- Avatar with edit badge -->
+                    <FrameLayout
+                        android:layout_width="82dp"
+                        android:layout_height="82dp"
+                        android:layout_marginEnd="18dp">
+
+                        <!-- Profile image circle -->
+                        <ImageView
+                            android:id="@+id/ivProfileImage"
+                            android:layout_width="82dp"
+                            android:layout_height="82dp"
+                            android:src="@drawable/ic_avatar_placeholder"
+                            android:scaleType="centerCrop"
+                            android:background="@drawable/profile_avatar_ring"/>
+
+                        <!-- Edit photo badge -->
+                        <FrameLayout
+                            android:id="@+id/ivEditPhoto"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:layout_gravity="bottom|end"
+                            android:background="@drawable/circle_bg_teal">
+
+                            <ImageView
+                                android:layout_width="13dp"
+                                android:layout_height="13dp"
+                                android:src="@drawable/ic_edit"
+                                android:tint="#FFFFFF"
+                                android:layout_gravity="center"/>
+                        </FrameLayout>
+                    </FrameLayout>
+
+                    <!-- Name, email, membership badge -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvFullName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Your Name"
+                            android:textColor="#FFFFFF"
+                            android:textSize="22sp"
+                            android:fontFamily="@font/playfair_display_bold"
+                            android:layout_marginBottom="3dp"/>
+
+                        <TextView
+                            android:id="@+id/tvEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="email@example.com"
+                            android:textColor="#8AAFC8"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:layout_marginBottom="10dp"/>
+
+                        <!-- Membership pill -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="✦  ESTATE MEMBER"
+                            android:textColor="#0D1B2A"
+                            android:textSize="9sp"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:letterSpacing="0.08"
+                            android:background="@drawable/membership_badge_bg"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Edit Profile button -->
+                <Button
+                    android:id="@+id/btnEditProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:text="Edit Profile"
+                    android:textColor="#0D1B2A"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:background="@drawable/btn_edit_profile"
+                    android:layout_marginTop="22dp"/>
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!--  STATS CARD  (floats over hero)            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="-18dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="10dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp">
+
+                <!-- Stat: Properties -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="124"
+                        android:textColor="#0D1B2A"
+                        android:textSize="22sp"
+                        android:fontFamily="@font/playfair_display_bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Browsed"
+                        android:textColor="#9BAABB"
+                        android:textSize="11sp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:layout_marginTop="3dp"/>
+                </LinearLayout>
+
+                <!-- Vertical divider -->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:background="#EEF0F4"
+                    android:layout_gravity="center_vertical"/>
+
+                <!-- Stat: Favorites -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="28"
+                        android:textColor="#3DB8A8"
+                        android:textSize="22sp"
+                        android:fontFamily="@font/playfair_display_bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Favorites"
+                        android:textColor="#9BAABB"
+                        android:textSize="11sp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:layout_marginTop="3dp"/>
+                </LinearLayout>
+
+                <!-- Vertical divider -->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:background="#EEF0F4"
+                    android:layout_gravity="center_vertical"/>
+
+                <!-- Stat: Tours -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12"
+                        android:textColor="#0D1B2A"
+                        android:textSize="22sp"
+                        android:fontFamily="@font/playfair_display_bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tours"
+                        android:textColor="#9BAABB"
+                        android:textSize="11sp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:layout_marginTop="3dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!--  ACTIVITY SECTION                          -->
+        <!-- ═══════════════════════════════════════════ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Activity"
+            android:textColor="#0D1B2A"
+            android:textSize="15sp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="10dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
+
+                <!-- My Properties -->
+                <include layout="@layout/item_profile_row"
+                    android:id="@+id/rowMyProperties"/>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="#F4F6F8" android:layout_marginStart="58dp"/>
+
+                <!-- Wishlist / Favorites -->
+                <include layout="@layout/item_profile_row"
+                    android:id="@+id/rowWishlist"/>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="#F4F6F8" android:layout_marginStart="58dp"/>
+
+                <!-- Saved Searches -->
+                <include layout="@layout/item_profile_row"
+                    android:id="@+id/rowSavedSearches"/>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="#F4F6F8" android:layout_marginStart="58dp"/>
+
+                <!-- Messages -->
+                <include layout="@layout/item_profile_row"
+                    android:id="@+id/rowMessages"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!--  ACCOUNT SECTION                           -->
+        <!-- ═══════════════════════════════════════════ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Account"
+            android:textColor="#0D1B2A"
+            android:textSize="15sp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="10dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
+
+                <!-- Notifications -->
+                <include layout="@layout/item_profile_row"
+                    android:id="@+id/rowNotifications"/>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="#F4F6F8" android:layout_marginStart="58dp"/>
+
+                <!-- Payment Methods -->
+                <include layout="@layout/item_profile_row"
+                    android:id="@+id/rowPayment"/>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="#F4F6F8" android:layout_marginStart="58dp"/>
+
+                <!-- Settings -->
+                <include layout="@layout/item_profile_row"
+                    android:id="@+id/rowSettings"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!--  LEGAL SECTION                             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Legal"
+            android:textColor="#0D1B2A"
+            android:textSize="15sp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="10dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
+
+                <include layout="@layout/item_profile_row"
+                    android:id="@+id/rowPrivacy"/>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="#F4F6F8" android:layout_marginStart="58dp"/>
+
+                <include layout="@layout/item_profile_row"
+                    android:id="@+id/rowTerms"/>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="#F4F6F8" android:layout_marginStart="58dp"/>
+
+                <include layout="@layout/item_profile_row"
+                    android:id="@+id/rowHelp"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!--  SIGN OUT                                  -->
+        <!-- ═══════════════════════════════════════════ -->
+        <Button
+            android:id="@+id/btnSignOut"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Sign Out"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textColor="#E53935"
+            android:fontFamily="@font/montserrat_semibold"
+            android:background="@drawable/btn_signout"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="24dp"/>
+
+        <!-- Version tag -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="18dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Azure Estate"
+                android:textColor="#AABBCC"
+                android:textSize="11sp"
+                android:fontFamily="@font/playfair_display_bold"
+                android:letterSpacing="0.04"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Version 1.0.0  ·  © 2024"
+                android:textColor="#C8D4E0"
+                android:textSize="10sp"
+                android:fontFamily="@font/montserrat_regular"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F6F8">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="80dp">
+
+            <!-- ─── Top Bar ─── -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="52dp"
+                android:paddingBottom="16dp"
+                android:background="#FFFFFF">
+
+                <ImageView
+                    android:id="@+id/ivMenu"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_menu"
+                    android:tint="#0D1B2A"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tvAppTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="The Estate"
+                    android:textColor="#0D1B2A"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:layout_marginStart="12dp"
+                    app:layout_constraintStart_toEndOf="@+id/ivMenu"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:src="@drawable/ic_avatar_placeholder"
+                    android:background="@drawable/circle_bg"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ─── Hero Headline ─── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="24dp"
+                android:paddingBottom="20dp"
+                android:background="#FFFFFF">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Find your next"
+                    android:textColor="#0D1B2A"
+                    android:textSize="28sp"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:lineSpacingMultiplier="1.1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="architectural"
+                    android:textColor="#3DB8A8"
+                    android:textSize="28sp"
+                    android:fontFamily="@font/playfair_display_bold_italic"
+                    android:lineSpacingMultiplier="1.1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="masterpiece."
+                    android:textColor="#0D1B2A"
+                    android:textSize="28sp"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:lineSpacingMultiplier="1.1"
+                    android:layout_marginBottom="20dp"/>
+
+                <!-- Search Bar -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/search_bar_bg">
+
+                    <ImageView
+                        android:id="@+id/ivSearchIcon"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_search"
+                        android:tint="#9BAABB"
+                        android:layout_marginStart="14dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <EditText
+                        android:id="@+id/etSearch"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:hint="Search by city, neighborhood..."
+                        android:textColorHint="#AABBCC"
+                        android:textColor="#0D1B2A"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:background="@null"
+                        android:paddingStart="10dp"
+                        android:singleLine="true"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        app:layout_constraintStart_toEndOf="@id/ivSearchIcon"
+                        app:layout_constraintEnd_toStartOf="@+id/btnSearch"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <Button
+                        android:id="@+id/btnSearch"
+                        android:layout_width="90dp"
+                        android:layout_height="41dp"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/btn_search"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Search"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <!-- ─── Browse by Category ─── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:paddingBottom="20dp"
+                android:layout_marginTop="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="14dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Browse by Category"
+                        android:textColor="#0D1B2A"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tvViewAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="View All"
+                        android:textColor="#3DB8A8"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/montserrat_medium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Category chips -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:clipToPadding="false">
+
+                    <LinearLayout
+                        android:id="@+id/llCategories"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Houses -->
+                        <LinearLayout
+                            android:id="@+id/catHouses"
+                            android:layout_width="80dp"
+                            android:layout_height="90dp"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:background="@drawable/category_bg_inactive"
+                            android:layout_marginEnd="10dp">
+                            <ImageView
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:src="@drawable/ic_house"
+                                android:tint="#8A9BB0"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="HOUSES"
+                                android:textColor="#8A9BB0"
+                                android:textSize="9sp"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:letterSpacing="0.08"
+                                android:layout_marginTop="6dp"/>
+                        </LinearLayout>
+
+                        <!-- Apartments (active) -->
+                        <LinearLayout
+                            android:id="@+id/catApartments"
+                            android:layout_width="80dp"
+                            android:layout_height="90dp"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:background="@drawable/category_bg_active"
+                            android:layout_marginEnd="10dp">
+                            <ImageView
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:src="@drawable/ic_apartment"
+                                android:tint="#0D1B2A"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="APARTMENTS"
+                                android:textColor="#0D1B2A"
+                                android:textSize="8sp"
+                                android:fontFamily="@font/montserrat_bold"
+                                android:letterSpacing="0.05"
+                                android:layout_marginTop="6dp"/>
+                        </LinearLayout>
+
+                        <!-- Condos -->
+                        <LinearLayout
+                            android:id="@+id/catCondos"
+                            android:layout_width="80dp"
+                            android:layout_height="90dp"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:background="@drawable/category_bg_inactive"
+                            android:layout_marginEnd="10dp">
+                            <ImageView
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:src="@drawable/ic_condo"
+                                android:tint="#8A9BB0"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="CONDOS"
+                                android:textColor="#8A9BB0"
+                                android:textSize="9sp"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:letterSpacing="0.08"
+                                android:layout_marginTop="6dp"/>
+                        </LinearLayout>
+
+                        <!-- Villas -->
+                        <LinearLayout
+                            android:id="@+id/catVillas"
+                            android:layout_width="80dp"
+                            android:layout_height="90dp"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:background="@drawable/category_bg_inactive">
+                            <ImageView
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:src="@drawable/ic_villa"
+                                android:tint="#8A9BB0"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="VILLAS"
+                                android:textColor="#8A9BB0"
+                                android:textSize="9sp"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:letterSpacing="0.08"
+                                android:layout_marginTop="6dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <!-- ─── Featured Properties Header ─── -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="22dp"
+                android:paddingBottom="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Featured Properties"
+                    android:textColor="#0D1B2A"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/playfair_display_bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/ivFilter"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_filter"
+                    android:background="@drawable/filter_btn_bg"
+                    android:padding="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ─── Property List (RecyclerView) ─── -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvProperties"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

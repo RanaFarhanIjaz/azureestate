@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_background">
+
+    <!-- Teal Icon Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardIcon"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="#4DC9B8"
+        app:layout_constraintBottom_toTopOf="@+id/tvBrandName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_bias="0.5"
+        android:layout_marginBottom="28dp">
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_building"
+            android:tint="#0D2E4A" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- Brand Name -->
+    <TextView
+        android:id="@+id/tvBrandName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Azure Estate"
+        android:textColor="#4DC9B8"
+        android:textSize="36sp"
+        android:fontFamily="@font/playfair_display_bold"
+        android:letterSpacing="0.02"
+        app:layout_constraintBottom_toTopOf="@+id/tvTagline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardIcon"
+        android:layout_marginBottom="10dp"/>
+
+    <!-- Tagline -->
+    <TextView
+        android:id="@+id/tvTagline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="THE CURATED COLLECTION"
+        android:textColor="#4DC9B8"
+        android:textSize="11sp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:letterSpacing="0.25"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBrandName"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Divider with teal accent -->
+    <View
+        android:id="@+id/divider"
+        android:layout_width="140dp"
+        android:layout_height="1dp"
+        android:background="@drawable/divider_gradient"
+        app:layout_constraintBottom_toTopOf="@+id/tvSubtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTagline"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Subtitle -->
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Curating your architectural experience"
+        android:textColor="#88B0C8"
+        android:textSize="14sp"
+        android:fontFamily="@font/montserrat_light"
+        android:letterSpacing="0.03"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <!-- Bottom member text -->
+    <TextView
+        android:id="@+id/tvMember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MEMBER OF THE AZURE GLOBAL GROUP"
+        android:textColor="#2A5070"
+        android:textSize="9sp"
+        android:fontFamily="@font/montserrat_regular"
+        android:letterSpacing="0.18"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="32dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

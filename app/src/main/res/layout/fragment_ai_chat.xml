@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F6F8">
+
+    <!-- ─── Top Bar ─── -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#0D1B2A"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="52dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- AI Avatar -->
+            <FrameLayout
+                android:id="@+id/aiAvatarFrame"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <View
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:background="@drawable/ai_avatar_bg"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AE"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:layout_gravity="center"/>
+            </FrameLayout>
+
+            <!-- Name + status -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toEndOf="@+id/aiAvatarFrame"
+                app:layout_constraintEnd_toStartOf="@+id/btnClearChat"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Estate AI"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/playfair_display_bold"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:id="@+id/statusDot"
+                        android:layout_width="7dp"
+                        android:layout_height="7dp"
+                        android:background="@drawable/status_dot_online"
+                        android:layout_marginEnd="5dp"/>
+
+                    <TextView
+                        android:id="@+id/tvStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Online · Powered by Groq"
+                        android:textColor="#8AB0CC"
+                        android:textSize="11sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Clear button -->
+            <ImageView
+                android:id="@+id/btnClearChat"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_delete"
+                android:tint="#8AB0CC"
+                android:padding="6dp"
+                android:background="@drawable/icon_btn_bg_dark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <!-- ─── Suggestion chips (shown before first message) ─── -->
+    <HorizontalScrollView
+        android:id="@+id/hsvSuggestions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="8dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@+id/topBar"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/llSuggestions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"/>
+    </HorizontalScrollView>
+
+    <!-- ─── Chat RecyclerView ─── -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvChat"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@+id/hsvSuggestions"
+        app:layout_constraintBottom_toTopOf="@+id/inputBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- ─── Input bar ─── -->
+    <LinearLayout
+        android:id="@+id/inputBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#FFFFFF"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="24dp"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#F4F6F8"
+            android:layout_marginEnd="10dp">
+
+            <EditText
+                android:id="@+id/etChatInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Ask about properties..."
+                android:textColorHint="#AABBCC"
+                android:textColor="#0D1B2A"
+                android:textSize="13sp"
+                android:fontFamily="@font/montserrat_regular"
+                android:background="@null"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:maxLines="3"
+                android:inputType="textMultiLine"
+                android:gravity="center_vertical"/>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Send button -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnSend"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#3DB8A8">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_send"
+                android:tint="#FFFFFF"
+                android:layout_gravity="center"/>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

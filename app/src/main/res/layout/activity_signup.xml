@@ -1,0 +1,810 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F2F5">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ─── Top Bar ─── -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="24dp"
+                android:paddingTop="52dp"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    android:id="@+id/tvAppName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Azure Estate"
+                    android:textColor="#0D1B2A"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/playfair_display_bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tvContactSales"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Contact Sales"
+                    android:textColor="#3DB8A8"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/montserrat_medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ─── Main Card ─── -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="26dp"
+                    android:paddingEnd="26dp"
+                    android:paddingTop="30dp"
+                    android:paddingBottom="28dp">
+
+                    <!-- Title -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Apply for"
+                        android:textColor="#0D1B2A"
+                        android:textSize="28sp"
+                        android:fontFamily="@font/playfair_display_bold"
+                        android:layout_gravity="center_horizontal"
+                        android:lineSpacingMultiplier="1.1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Membership"
+                        android:textColor="#3DB8A8"
+                        android:textSize="28sp"
+                        android:fontFamily="@font/playfair_display_bold_italic"
+                        android:layout_gravity="center_horizontal"
+                        android:lineSpacingMultiplier="1.1"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Join The Estate — access curated listings\nreserved for discerning members."
+                        android:textColor="#8A9BB0"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:gravity="center"
+                        android:layout_gravity="center_horizontal"
+                        android:lineSpacingMultiplier="1.5"
+                        android:layout_marginBottom="28dp"/>
+
+                    <!-- ─── Step Indicator ─── -->
+                    <LinearLayout
+                        android:id="@+id/llStepIndicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginBottom="28dp">
+
+                        <!-- Step 1 dot (active) -->
+                        <View
+                            android:id="@+id/dot1"
+                            android:layout_width="28dp"
+                            android:layout_height="6dp"
+                            android:background="@drawable/step_dot_active"/>
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="1dp"
+                            android:background="#E0E8F0"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"/>
+
+                        <!-- Step 2 dot -->
+                        <View
+                            android:id="@+id/dot2"
+                            android:layout_width="8dp"
+                            android:layout_height="6dp"
+                            android:background="@drawable/step_dot_inactive"/>
+
+                        <View
+                            android:layout_width="20dp"
+                            android:layout_height="1dp"
+                            android:background="#E0E8F0"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"/>
+
+                        <!-- Step 3 dot -->
+                        <View
+                            android:id="@+id/dot3"
+                            android:layout_width="8dp"
+                            android:layout_height="6dp"
+                            android:background="@drawable/step_dot_inactive"/>
+                    </LinearLayout>
+
+                    <!-- ══════════════════════════════════ -->
+                    <!--          STEP 1: Personal Info     -->
+                    <!-- ══════════════════════════════════ -->
+                    <LinearLayout
+                        android:id="@+id/layoutStep1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="STEP 1 OF 3 — PERSONAL INFO"
+                            android:textColor="#9BAABB"
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:letterSpacing="0.1"
+                            android:layout_marginBottom="20dp"/>
+
+                        <!-- First Name -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="FIRST NAME"
+                            style="@style/FieldLabel"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilFirstName"
+                            style="@style/AzureInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etFirstName"
+                                android:layout_width="match_parent"
+                                android:layout_height="54dp"
+                                android:hint="Alexandra"
+                                android:textColorHint="#AABBCC"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:inputType="textPersonName"
+                                android:background="@drawable/input_background"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Last Name -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="LAST NAME"
+                            style="@style/FieldLabel"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilLastName"
+                            style="@style/AzureInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etLastName"
+                                android:layout_width="match_parent"
+                                android:layout_height="54dp"
+                                android:hint="Whitmore"
+                                android:textColorHint="#AABBCC"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:inputType="textPersonName"
+                                android:background="@drawable/input_background"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Phone -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PHONE NUMBER"
+                            style="@style/FieldLabel"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilPhone"
+                            style="@style/AzureInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etPhone"
+                                android:layout_width="match_parent"
+                                android:layout_height="54dp"
+                                android:hint="+1 (555) 000-0000"
+                                android:textColorHint="#AABBCC"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:inputType="phone"
+                                android:background="@drawable/input_background"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Date of Birth -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DATE OF BIRTH"
+                            style="@style/FieldLabel"/>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/tilDob"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:background="@drawable/input_background"
+                            android:layout_marginBottom="24dp">
+
+                            <TextView
+                                android:id="@+id/tvDobDisplay"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="MM / DD / YYYY"
+                                android:textColor="#AABBCC"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:paddingStart="16dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/ivCalendar"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+
+                            <ImageView
+                                android:id="@+id/ivCalendar"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_calendar"
+                                android:tint="#9BAABB"
+                                android:layout_marginEnd="16dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <!-- Next Button -->
+                        <Button
+                            android:id="@+id/btnStep1Next"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:text="Continue"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:background="@drawable/btn_sign_in"
+                            android:letterSpacing="0.03"/>
+
+                    </LinearLayout>
+
+                    <!-- ══════════════════════════════════ -->
+                    <!--       STEP 2: Account Setup        -->
+                    <!-- ══════════════════════════════════ -->
+                    <LinearLayout
+                        android:id="@+id/layoutStep2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="STEP 2 OF 3 — ACCOUNT SETUP"
+                            android:textColor="#9BAABB"
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:letterSpacing="0.1"
+                            android:layout_marginBottom="20dp"/>
+
+                        <!-- Email -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="EMAIL ADDRESS"
+                            style="@style/FieldLabel"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilEmail"
+                            style="@style/AzureInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etEmail"
+                                android:layout_width="match_parent"
+                                android:layout_height="54dp"
+                                android:hint="name@company.com"
+                                android:textColorHint="#AABBCC"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:inputType="textEmailAddress"
+                                android:background="@drawable/input_background"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Password -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="PASSWORD"
+                                style="@style/FieldLabel"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+
+                            <TextView
+                                android:id="@+id/tvPasswordStrength"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textSize="10sp"
+                                android:fontFamily="@font/montserrat_semibold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilPassword"
+                            style="@style/AzureInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:passwordToggleEnabled="true"
+                            android:layout_marginBottom="8dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="54dp"
+                                android:hint="Min. 8 characters"
+                                android:textColorHint="#AABBCC"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:inputType="textPassword"
+                                android:background="@drawable/input_background"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Password strength bar -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="16dp">
+
+                            <View
+                                android:id="@+id/strengthBar1"
+                                android:layout_width="0dp"
+                                android:layout_height="4dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/strength_bar_empty"
+                                android:layout_marginEnd="3dp"/>
+                            <View
+                                android:id="@+id/strengthBar2"
+                                android:layout_width="0dp"
+                                android:layout_height="4dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/strength_bar_empty"
+                                android:layout_marginEnd="3dp"/>
+                            <View
+                                android:id="@+id/strengthBar3"
+                                android:layout_width="0dp"
+                                android:layout_height="4dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/strength_bar_empty"
+                                android:layout_marginEnd="3dp"/>
+                            <View
+                                android:id="@+id/strengthBar4"
+                                android:layout_width="0dp"
+                                android:layout_height="4dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/strength_bar_empty"/>
+                        </LinearLayout>
+
+                        <!-- Confirm Password -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="CONFIRM PASSWORD"
+                            style="@style/FieldLabel"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilConfirmPassword"
+                            style="@style/AzureInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:passwordToggleEnabled="true"
+                            android:layout_marginBottom="24dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etConfirmPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="54dp"
+                                android:hint="Re-enter password"
+                                android:textColorHint="#AABBCC"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:inputType="textPassword"
+                                android:background="@drawable/input_background"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Row: Back + Continue -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <Button
+                                android:id="@+id/btnStep2Back"
+                                android:layout_width="0dp"
+                                android:layout_height="54dp"
+                                android:layout_weight="1"
+                                android:text="Back"
+                                android:textColor="#0D1B2A"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:background="@drawable/btn_outline_dark"
+                                android:layout_marginEnd="10dp"/>
+
+                            <Button
+                                android:id="@+id/btnStep2Next"
+                                android:layout_width="0dp"
+                                android:layout_height="54dp"
+                                android:layout_weight="2"
+                                android:text="Continue"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:background="@drawable/btn_sign_in"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- ══════════════════════════════════ -->
+                    <!--       STEP 3: Preferences          -->
+                    <!-- ══════════════════════════════════ -->
+                    <LinearLayout
+                        android:id="@+id/layoutStep3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="STEP 3 OF 3 — YOUR PREFERENCES"
+                            android:textColor="#9BAABB"
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:letterSpacing="0.1"
+                            android:layout_marginBottom="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Help us curate properties just for you."
+                            android:textColor="#7A8899"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:layout_marginBottom="20dp"/>
+
+                        <!-- Property Type -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PREFERRED PROPERTY TYPE"
+                            style="@style/FieldLabel"/>
+
+                        <LinearLayout
+                            android:id="@+id/llPropertyTypes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="20dp">
+
+                            <TextView
+                                android:id="@+id/chipHouses"
+                                android:layout_width="0dp"
+                                android:layout_height="38dp"
+                                android:layout_weight="1"
+                                android:text="Houses"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:background="@drawable/chip_inactive"
+                                android:layout_marginEnd="6dp"
+                                android:textColor="#7A8899"/>
+
+                            <TextView
+                                android:id="@+id/chipApartments"
+                                android:layout_width="0dp"
+                                android:layout_height="38dp"
+                                android:layout_weight="1"
+                                android:text="Apartments"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:background="@drawable/chip_inactive"
+                                android:layout_marginEnd="6dp"
+                                android:textColor="#7A8899"/>
+
+                            <TextView
+                                android:id="@+id/chipVillas"
+                                android:layout_width="0dp"
+                                android:layout_height="38dp"
+                                android:layout_weight="1"
+                                android:text="Villas"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:background="@drawable/chip_inactive"
+                                android:textColor="#7A8899"/>
+                        </LinearLayout>
+
+                        <!-- Budget Range -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="BUDGET RANGE"
+                            style="@style/FieldLabel"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="6dp">
+
+                            <TextView
+                                android:id="@+id/tvBudgetMin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="$500K"
+                                android:textColor="#0D1B2A"
+                                android:textSize="13sp"
+                                android:fontFamily="@font/playfair_display_bold"/>
+
+                            <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/tvBudgetMax"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="$10M+"
+                                android:textColor="#0D1B2A"
+                                android:textSize="13sp"
+                                android:fontFamily="@font/playfair_display_bold"/>
+                        </LinearLayout>
+
+                        <com.google.android.material.slider.RangeSlider
+                            android:id="@+id/sliderBudget"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:valueFrom="500000"
+                            android:valueTo="10000000"
+                            app:values="@array/default_budget"
+                            app:thumbColor="#0D1B2A"
+                            app:thumbRadius="10dp"
+                            app:trackColorActive="#3DB8A8"
+                            app:trackColorInactive="#E0E8F0"
+                            app:trackHeight="4dp"
+                            android:layout_marginBottom="20dp"/>
+
+                        <!-- Location Preference -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PREFERRED LOCATION"
+                            style="@style/FieldLabel"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilLocation"
+                            style="@style/AzureInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etLocation"
+                                android:layout_width="match_parent"
+                                android:layout_height="54dp"
+                                android:hint="e.g. Los Angeles, New York..."
+                                android:textColorHint="#AABBCC"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:inputType="text"
+                                android:background="@drawable/input_background"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Terms checkbox -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="24dp">
+
+                            <CheckBox
+                                android:id="@+id/cbTerms"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:buttonTint="#3DB8A8"
+                                android:layout_marginEnd="10dp"/>
+
+                            <TextView
+                                android:id="@+id/tvTerms"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="I agree to the Terms of Service and Privacy Policy"
+                                android:textColor="#5A6B7A"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:lineSpacingMultiplier="1.4"/>
+                        </LinearLayout>
+
+                        <!-- Row: Back + Submit -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <Button
+                                android:id="@+id/btnStep3Back"
+                                android:layout_width="0dp"
+                                android:layout_height="54dp"
+                                android:layout_weight="1"
+                                android:text="Back"
+                                android:textColor="#0D1B2A"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:background="@drawable/btn_outline_dark"
+                                android:layout_marginEnd="10dp"/>
+
+                            <Button
+                                android:id="@+id/btnSubmit"
+                                android:layout_width="0dp"
+                                android:layout_height="54dp"
+                                android:layout_weight="2"
+                                android:text="Join The Estate"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:background="@drawable/btn_sign_in"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- ─── OR Divider ─── -->
+                    <LinearLayout
+                        android:id="@+id/llOrDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginBottom="18dp">
+
+                        <View android:layout_width="0dp" android:layout_height="1dp"
+                            android:layout_weight="1" android:background="#E8EBF0"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="OR CONTINUE WITH"
+                            android:textColor="#9BAABB"
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:letterSpacing="0.12"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="12dp"/>
+                        <View android:layout_width="0dp" android:layout_height="1dp"
+                            android:layout_weight="1" android:background="#E8EBF0"/>
+                    </LinearLayout>
+
+                    <!-- Social Buttons -->
+                    <LinearLayout
+                        android:id="@+id/llSocialButtons"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="22dp">
+
+                        <Button
+                            android:id="@+id/btnGoogle"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:text="Google"
+                            android:textColor="#0D1B2A"
+                            android:textSize="13sp"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:drawableStart="@drawable/ic_google"
+                            android:drawablePadding="8dp"
+                            android:background="@drawable/btn_social"/>
+                    </LinearLayout>
+
+                    <!-- Already have account -->
+                    <TextView
+                        android:id="@+id/tvSignIn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Already a member? Sign In"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Footer -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="PRIVACY\nPOLICY" android:textColor="#7A8899"
+                        android:textSize="9sp" android:fontFamily="@font/montserrat_semibold"
+                        android:letterSpacing="0.1" android:gravity="center"
+                        android:layout_marginEnd="20dp"/>
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="TERMS OF\nSERVICE" android:textColor="#7A8899"
+                        android:textSize="9sp" android:fontFamily="@font/montserrat_semibold"
+                        android:letterSpacing="0.1" android:gravity="center"
+                        android:layout_marginEnd="20dp"/>
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="HELP\nCENTER" android:textColor="#7A8899"
+                        android:textSize="9sp" android:fontFamily="@font/montserrat_semibold"
+                        android:letterSpacing="0.1" android:gravity="center"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="© 2024 Azure Estate Portfolio. All rights reserved."
+                    android:textColor="#9BAABB"
+                    android:textSize="9sp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

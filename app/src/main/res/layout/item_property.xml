@@ -97,51 +97,16 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Price + Rating row -->
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Price row -->
+            <TextView
+                android:id="@+id/tvPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
-
-                <TextView
-                    android:id="@+id/tvPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$0,000,000"
-                    android:textColor="#0D1B2A"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/playfair_display_bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-                <!-- Star + rating -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
-
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:src="@drawable/ic_star"
-                        android:tint="#3DB8A8"/>
-
-                    <TextView
-                        android:id="@+id/tvRating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="4.9"
-                        android:textColor="#3DB8A8"
-                        android:textSize="13sp"
-                        android:fontFamily="@font/montserrat_semibold"
-                        android:layout_marginStart="4dp"/>
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:text="$0,000,000"
+                android:textColor="#0D1B2A"
+                android:textSize="20sp"
+                android:fontFamily="@font/playfair_display_bold"
+                android:layout_marginBottom="5dp"/>
 
             <!-- Address -->
             <TextView

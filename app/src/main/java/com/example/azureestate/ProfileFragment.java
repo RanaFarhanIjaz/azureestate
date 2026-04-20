@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,15 +27,13 @@ public class ProfileFragment extends Fragment {
     private FirebaseUser currentUser;
 
     // Header views
-    private ImageView ivProfileImage, ivSettings;
-    private FrameLayout ivEditPhoto;
+    private ImageView ivProfileImage;
     private TextView tvFullName, tvEmail;
-    private Button btnEditProfile, btnSignOut;
+    private Button btnSignOut;
 
-    // Row containers (using the redesigned item_profile_row.xml)
-    private View rowMyProperties, rowWishlist, rowSavedSearches, rowMessages;
-    private View rowNotifications, rowPayment, rowSettings;
-    private View rowPrivacy, rowTerms, rowHelp;
+    // Row containers
+    private View rowMyProperties, rowWishlist, rowMessages;
+    private View rowPrivacy, rowTerms, rowHelp, rowAbout;
 
     @Nullable
     @Override
@@ -76,39 +73,30 @@ public class ProfileFragment extends Fragment {
     // ─────────────────────────────────────────────────────────────
     private void initViews(View view) {
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
-        ivSettings     = view.findViewById(R.id.ivSettings);
-        ivEditPhoto    = view.findViewById(R.id.ivEditPhoto);
         tvFullName     = view.findViewById(R.id.tvFullName);
         tvEmail        = view.findViewById(R.id.tvEmail);
-        btnEditProfile = view.findViewById(R.id.btnEditProfile);
         btnSignOut     = view.findViewById(R.id.btnSignOut);
 
         rowMyProperties  = view.findViewById(R.id.rowMyProperties);
         rowWishlist      = view.findViewById(R.id.rowWishlist);
-        rowSavedSearches = view.findViewById(R.id.rowSavedSearches);
         rowMessages      = view.findViewById(R.id.rowMessages);
-        rowNotifications = view.findViewById(R.id.rowNotifications);
-        rowPayment       = view.findViewById(R.id.rowPayment);
-        rowSettings      = view.findViewById(R.id.rowSettings);
         rowPrivacy       = view.findViewById(R.id.rowPrivacy);
         rowTerms         = view.findViewById(R.id.rowTerms);
         rowHelp          = view.findViewById(R.id.rowHelp);
+        rowAbout         = view.findViewById(R.id.rowAbout);
     }
 
     // ─────────────────────────────────────────────────────────────
     //  Configure each row's icon + label using the shared layout
     // ─────────────────────────────────────────────────────────────
     private void setupRows() {
-        configRow(rowMyProperties,  R.drawable.ic_house,         "My Properties",  null);
-        configRow(rowWishlist,       R.drawable.ic_favorite,      "Wishlist",       "28");
-        configRow(rowSavedSearches,  R.drawable.ic_search,        "Saved Searches", null);
-        configRow(rowMessages,       R.drawable.ic_message,       "Messages",       "3");
-        configRow(rowNotifications,  R.drawable.ic_notifications, "Notifications",  null);
-        configRow(rowPayment,        R.drawable.ic_payment,       "Payment Methods",null);
-        configRow(rowSettings,       R.drawable.ic_settings,      "Settings",       null);
-        configRow(rowPrivacy,        R.drawable.ic_privacy,       "Privacy Policy", null);
-        configRow(rowTerms,          R.drawable.ic_terms,         "Terms of Service",null);
-        configRow(rowHelp,           R.drawable.ic_help,          "Help Center",    null);
+        configRow(rowMyProperties,  R.drawable.ic_house,     "My Properties",    null);
+        configRow(rowWishlist,      R.drawable.ic_favorite,  "Wishlist",          null);
+        configRow(rowMessages,      R.drawable.ic_message,   "Messages",          null);
+        configRow(rowPrivacy,       R.drawable.ic_privacy,   "Privacy Policy",    null);
+        configRow(rowTerms,         R.drawable.ic_terms,     "Terms of Service",  null);
+        configRow(rowHelp,          R.drawable.ic_help,      "Help Center",       null);
+        configRow(rowAbout,         R.drawable.ic_info,      "About",             null);
     }
 
     /**
@@ -140,11 +128,8 @@ public class ProfileFragment extends Fragment {
 
     // ─────────────────────────────────────────────────────────────
     private void setupClickListeners() {
-        safe(ivSettings,   () -> Toast.makeText(getContext(), "Settings coming soon", Toast.LENGTH_SHORT).show());
-        safe(ivEditPhoto,  () -> Toast.makeText(getContext(), "Change photo coming soon", Toast.LENGTH_SHORT).show());
-        safe(btnEditProfile,() -> Toast.makeText(getContext(), "Edit profile coming soon", Toast.LENGTH_SHORT).show());
-
-        safe(rowMyProperties,  () -> Toast.makeText(getContext(), "My Properties", Toast.LENGTH_SHORT).show());
+        // Activity rows — functional
+        safe(rowMyProperties, () -> Toast.makeText(getContext(), "My Properties", Toast.LENGTH_SHORT).show());
         safe(rowWishlist, () -> {
             if (getActivity() instanceof MainActivity) {
                 ((MainActivity) getActivity()).navigateToFavorites();
@@ -152,16 +137,27 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getContext(), "Wishlist", Toast.LENGTH_SHORT).show();
             }
         });
-        safe(rowSavedSearches, () -> Toast.makeText(getContext(), "Saved Searches", Toast.LENGTH_SHORT).show());
-        safe(rowMessages,      () -> Toast.makeText(getContext(), "Messages", Toast.LENGTH_SHORT).show());
-        safe(rowNotifications, () -> Toast.makeText(getContext(), "Notifications", Toast.LENGTH_SHORT).show());
-        safe(rowPayment,       () -> Toast.makeText(getContext(), "Payment Methods", Toast.LENGTH_SHORT).show());
-        safe(rowSettings,      () -> Toast.makeText(getContext(), "Settings", Toast.LENGTH_SHORT).show());
-        safe(rowPrivacy,       () -> Toast.makeText(getContext(), "Privacy Policy", Toast.LENGTH_SHORT).show());
-        safe(rowTerms,         () -> Toast.makeText(getContext(), "Terms of Service", Toast.LENGTH_SHORT).show());
-        safe(rowHelp,          () -> Toast.makeText(getContext(), "Help Center", Toast.LENGTH_SHORT).show());
+        safe(rowMessages, () -> {
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).navigateToMessages();
+            }
+        });
+
+        // Legal rows — open LegalActivity with proper content
+        safe(rowPrivacy, () -> openLegal(LegalActivity.TYPE_PRIVACY));
+        safe(rowTerms,   () -> openLegal(LegalActivity.TYPE_TERMS));
+        safe(rowHelp,    () -> openLegal(LegalActivity.TYPE_HELP));
+        safe(rowAbout,   () -> openLegal(LegalActivity.TYPE_ABOUT));
 
         if (btnSignOut != null) btnSignOut.setOnClickListener(v -> signOut());
+    }
+
+    /** Opens the LegalActivity with the given content type */
+    private void openLegal(String type) {
+        if (getActivity() == null) return;
+        Intent intent = new Intent(getActivity(), LegalActivity.class);
+        intent.putExtra(LegalActivity.EXTRA_TYPE, type);
+        startActivity(intent);
     }
 
     /** Null-safe click listener helper */
@@ -201,7 +197,6 @@ public class ProfileFragment extends Fragment {
     // ─────────────────────────────────────────────────────────────
     private void animateEntrance(View root) {
         try {
-          //  View hero    = root.findViewById(R.id.heroContainer);
             // Fade in entire scroll content
             root.setAlpha(0f);
             root.animate().alpha(1f).setDuration(350).setStartDelay(50).start();

@@ -75,7 +75,6 @@ public class SupabasePropAdapter
 
         // ── Text fields ──
         h.tvPrice.setText(d.getFormattedPrice());
-        h.tvRating.setText(String.valueOf(d.rating));
         h.tvAddress.setText(d.address);
         h.tvBeds.setText(d.beds + " Beds");
         h.tvBaths.setText(d.baths + " Baths");
@@ -157,7 +156,7 @@ public class SupabasePropAdapter
 
     static class PropVH extends RecyclerView.ViewHolder {
         ImageView ivPropertyImage, ivFavorite;
-        TextView tvBadge, tvPrice, tvRating, tvAddress, tvBeds, tvBaths, tvSqft;
+        TextView tvBadge, tvPrice, tvAddress, tvBeds, tvBaths, tvSqft;
         LinearLayout llHoverOverlay;
 
         PropVH(@NonNull View v) {
@@ -166,7 +165,6 @@ public class SupabasePropAdapter
             ivFavorite      = v.findViewById(R.id.ivFavorite);
             tvBadge         = v.findViewById(R.id.tvBadge);
             tvPrice         = v.findViewById(R.id.tvPrice);
-            tvRating        = v.findViewById(R.id.tvRating);
             tvAddress       = v.findViewById(R.id.tvAddress);
             tvBeds          = v.findViewById(R.id.tvBeds);
             tvBaths         = v.findViewById(R.id.tvBaths);

@@ -112,11 +112,7 @@ public class PropertyDetailBottomSheet extends BottomSheetDialogFragment {
         // Get Directions
         view.findViewById(R.id.tvGetDirections).setOnClickListener(v -> openMaps());
 
-        // Agent buttons
-        view.findViewById(R.id.btnAgentProfile).setOnClickListener(v ->
-                Toast.makeText(requireContext(), "Agent profile coming soon", Toast.LENGTH_SHORT).show());
-        view.findViewById(R.id.btnAgentReviews).setOnClickListener(v ->
-                Toast.makeText(requireContext(), "Reviews coming soon", Toast.LENGTH_SHORT).show());
+
 
         // Bottom action buttons
         view.findViewById(R.id.btnContactAgent).setOnClickListener(v ->

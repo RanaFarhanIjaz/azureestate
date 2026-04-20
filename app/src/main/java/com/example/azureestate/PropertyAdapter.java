@@ -65,7 +65,7 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
     class PropertyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivPropertyImage, ivFavorite;
-        TextView tvBadge, tvPrice, tvRating, tvAddress, tvBeds, tvBaths, tvSqft;
+        TextView tvBadge, tvPrice, tvAddress, tvBeds, tvBaths, tvSqft;
         LinearLayout llHoverOverlay;
 
         public PropertyViewHolder(@NonNull View itemView) {
@@ -74,7 +74,6 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
             ivFavorite       = itemView.findViewById(R.id.ivFavorite);
             tvBadge          = itemView.findViewById(R.id.tvBadge);
             tvPrice          = itemView.findViewById(R.id.tvPrice);
-            tvRating         = itemView.findViewById(R.id.tvRating);
             tvAddress        = itemView.findViewById(R.id.tvAddress);
             tvBeds           = itemView.findViewById(R.id.tvBeds);
             tvBaths          = itemView.findViewById(R.id.tvBaths);
@@ -96,7 +95,6 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
 
             // Text fields
             tvPrice.setText(property.getPrice());
-            tvRating.setText(String.valueOf(property.getRating()));
             tvAddress.setText(property.getAddress());
             tvBeds.setText(property.getBeds() + " Beds");
             tvBaths.setText(property.getBaths() + " Baths");

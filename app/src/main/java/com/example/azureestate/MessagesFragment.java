@@ -1,12 +1,14 @@
 package com.example.azureestate;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -285,18 +287,34 @@ public class MessagesFragment extends Fragment {
             if (item.hasUnread) {
                 h.tvUnread.setVisibility(View.VISIBLE);
                 h.tvName.setTextColor(0xFF0D1B2A);
+                h.tvName.setTypeface(null, Typeface.BOLD);
                 h.tvLastMsg.setTextColor(0xFF3A4A5A);
+                h.tvLastMsg.setTypeface(null, Typeface.BOLD);
+                h.tvTime.setTextColor(0xFF3DB8A8);
             } else {
                 h.tvUnread.setVisibility(View.GONE);
                 h.tvName.setTextColor(0xFF0D1B2A);
+                h.tvName.setTypeface(null, Typeface.NORMAL);
                 h.tvLastMsg.setTextColor(0xFF9BAABB);
+                h.tvLastMsg.setTypeface(null, Typeface.NORMAL);
+                h.tvTime.setTextColor(0xFFB0BFCC);
             }
 
+            // Staggered entrance animation
+            h.itemView.setAlpha(0f);
+            h.itemView.setTranslationY(30f);
+            h.itemView.animate()
+                    .alpha(1f)
+                    .translationY(0f)
+                    .setDuration(300)
+                    .setStartDelay((long) position * 50)
+                    .setInterpolator(new DecelerateInterpolator())
+                    .start();
+
             h.itemView.setOnClickListener(v -> {
-                // Animate
-                h.itemView.animate().scaleX(0.97f).scaleY(0.97f).setDuration(80)
+                v.animate().scaleX(0.97f).scaleY(0.97f).setDuration(80)
                         .withEndAction(() ->
-                                h.itemView.animate().scaleX(1f).scaleY(1f).setDuration(80).start())
+                                v.animate().scaleX(1f).scaleY(1f).setDuration(80).start())
                         .start();
                 clickListener.onClick(item);
             });

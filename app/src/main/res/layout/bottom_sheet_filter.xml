@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bottom_sheet_bg">
 
@@ -18,7 +18,8 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:overScrollMode="never">
 
         <LinearLayout
@@ -27,7 +28,7 @@
             android:orientation="vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:paddingBottom="120dp">
+            android:paddingBottom="40dp">
 
             <!-- Header row -->
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -415,6 +416,7 @@
             android:textSize="14sp"
             android:fontFamily="@font/montserrat_semibold"
             android:background="@drawable/btn_outline_dark"
+            app:backgroundTint="@null"
             android:layout_marginEnd="10dp"/>
 
         <Button
@@ -422,11 +424,12 @@
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:layout_weight="2"
-            android:text="Show Results"
+            android:text="Apply"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
             android:fontFamily="@font/montserrat_semibold"
-            android:background="@drawable/btn_sign_in"/>
+            android:background="@drawable/btn_sign_in"
+            app:backgroundTint="@null"/>
     </LinearLayout>
 
 </LinearLayout>

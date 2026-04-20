@@ -115,56 +115,40 @@
                     android:lineSpacingMultiplier="1.1"
                     android:layout_marginBottom="20dp"/>
 
-                <!-- Search Bar -->
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <!-- Promo Banner (same shape as old search bar) -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:background="@drawable/search_bar_bg">
+                    android:background="@drawable/search_bar_bg"
+                    android:gravity="center_vertical"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/ivSearchIcon"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:src="@drawable/ic_search"
-                        android:tint="#9BAABB"
-                        android:layout_marginStart="14dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        android:src="@drawable/ic_discover"
+                        android:tint="#3DB8A8"
+                        android:layout_marginEnd="10dp"/>
 
-                    <EditText
-                        android:id="@+id/etSearch"
+                    <TextView
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:hint="Search by city, neighborhood..."
-                        android:textColorHint="#AABBCC"
-                        android:textColor="#0D1B2A"
-                        android:textSize="13sp"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:background="@null"
-                        android:paddingStart="10dp"
-                        android:singleLine="true"
-                        android:imeOptions="actionSearch"
-                        android:inputType="text"
-                        app:layout_constraintStart_toEndOf="@id/ivSearchIcon"
-                        app:layout_constraintEnd_toStartOf="@+id/btnSearch"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-
-                    <Button
-                        android:id="@+id/btnSearch"
-                        android:layout_width="90dp"
-                        android:layout_height="41dp"
-                        android:layout_marginEnd="6dp"
-                        android:background="@drawable/btn_search"
-                        android:fontFamily="@font/montserrat_semibold"
-                        android:text="Search"
-                        android:textColor="#FFFFFF"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Your dream home now starts from"
+                        android:textColor="#5A6B7A"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:fontFamily="@font/montserrat_medium"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$200"
+                        android:textColor="#3DB8A8"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/playfair_display_bold"/>
+                </LinearLayout>
             </LinearLayout>
 
             <!-- ─── Browse by Category ─── -->

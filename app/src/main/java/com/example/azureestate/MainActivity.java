@@ -217,6 +217,10 @@ public class MainActivity extends AppCompatActivity {
         selectTab(1);
     }
 
+    public void navigateToMessages() {
+        selectTab(3);
+    }
+
     public void navigateToAiChat() {
         selectTab(4);
     }

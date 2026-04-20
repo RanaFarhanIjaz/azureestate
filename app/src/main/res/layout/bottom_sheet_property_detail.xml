@@ -327,37 +327,7 @@
                             android:lineSpacingMultiplier="1.5"
                             android:layout_marginBottom="14dp"/>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="2">
 
-                            <Button
-                                android:id="@+id/btnAgentProfile"
-                                android:layout_width="0dp"
-                                android:layout_height="40dp"
-                                android:layout_weight="1"
-                                android:text="PROFILE"
-                                android:textColor="#FFFFFF"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/montserrat_semibold"
-                                android:textAllCaps="false"
-                                android:background="@drawable/btn_agent_outline"
-                                android:layout_marginEnd="8dp"/>
-
-                            <Button
-                                android:id="@+id/btnAgentReviews"
-                                android:layout_width="0dp"
-                                android:layout_height="40dp"
-                                android:layout_weight="1"
-                                android:text="REVIEWS"
-                                android:textColor="#FFFFFF"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/montserrat_semibold"
-                                android:textAllCaps="false"
-                                android:background="@drawable/btn_agent_outline"/>
-                        </LinearLayout>
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -400,13 +370,18 @@
                 android:layout_width="0dp"
                 android:layout_height="52dp"
                 android:layout_weight="1"
-                android:text="📞  Call Owner"
+                android:text="Call Owner"
                 android:textColor="#0D1B2A"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:textAllCaps="false"
                 android:fontFamily="@font/montserrat_semibold"
                 android:background="@drawable/btn_outline_dark"
-                android:layout_marginEnd="10dp"/>
+                app:backgroundTint="@null"
+                android:layout_marginEnd="10dp"
+                app:icon="@drawable/ic_call"
+                app:iconTint="#0D1B2A"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"/>
 
             <!-- 💬 Message Owner -->
             <Button
@@ -414,12 +389,17 @@
                 android:layout_width="0dp"
                 android:layout_height="52dp"
                 android:layout_weight="1"
-                android:text="💬  Message"
+                android:text="Message"
                 android:textColor="#FFFFFF"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:textAllCaps="false"
                 android:fontFamily="@font/montserrat_semibold"
-                android:background="@drawable/btn_navy_rounded"/>
+                android:background="@drawable/btn_navy_rounded"
+                app:backgroundTint="@null"
+                app:icon="@drawable/ic_chat"
+                app:iconTint="#FFFFFF"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"/>
 
         </LinearLayout>
     </LinearLayout>

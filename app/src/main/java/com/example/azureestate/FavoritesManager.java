@@ -63,6 +63,14 @@ public class FavoritesManager {
         }
     }
 
+    public void toggleFavorite(String propertyId) {
+        if (isFavorite(propertyId)) {
+            removeFavorite(propertyId);
+        } else {
+            addFavorite(propertyId);
+        }
+    }
+
     // Get all favorite IDs as Strings
     public Set<String> getAllFavorites() {
         return getFavoritesSet();

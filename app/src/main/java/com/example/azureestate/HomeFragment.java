@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,25 +13,25 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.azureestate.models.Property;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment
+        implements SupabaseManager.RealtimeListener {
 
     private RecyclerView rvProperties;
-    private PropertyAdapter adapter;
-    private List<Property> propertyList;
-    private FavoritesManager favoritesManager;
-
-    // Category views
+    private LinearLayout llLoadingState, llEmptyState;
     private LinearLayout catHouses, catApartments, catCondos, catVillas;
-    private String selectedCategory = "APARTMENTS";
+    private String selectedCategory = "ALL";
 
-    @Nullable
-    @Override
+    private final List<SupabaseManager.ListingData> allListings      = new ArrayList<>();
+    private final List<SupabaseManager.ListingData> filteredListings = new ArrayList<>();
+    private SupabasePropAdapter adapter;
+    private SupabaseManager supabase;
+
+    @Nullable @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -41,197 +41,176 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
-        favoritesManager = FavoritesManager.getInstance(requireContext());
-
+        supabase = SupabaseManager.getInstance(requireContext());
         bindViews(view);
         setupCategoryFilters();
-        loadProperties();
-        loadFavoriteStates();
-        setupRecyclerView();
+        setupAdapter();
+        loadListings();
+        supabase.subscribeToListings(this);
     }
 
-    private void bindViews(View view) {
-        rvProperties   = view.findViewById(R.id.rvProperties);
-        catHouses      = view.findViewById(R.id.catHouses);
-        catApartments  = view.findViewById(R.id.catApartments);
-        catCondos      = view.findViewById(R.id.catCondos);
-        catVillas      = view.findViewById(R.id.catVillas);
+    private void bindViews(View v) {
+        rvProperties   = v.findViewById(R.id.rvProperties);
+        llLoadingState = v.findViewById(R.id.llLoadingState);
+        llEmptyState   = v.findViewById(R.id.llEmptyState);
+        catHouses      = v.findViewById(R.id.catHouses);
+        catApartments  = v.findViewById(R.id.catApartments);
+        catCondos      = v.findViewById(R.id.catCondos);
+        catVillas      = v.findViewById(R.id.catVillas);
 
-        // Filter icon
-        view.findViewById(R.id.ivFilter).setOnClickListener(v ->
-                Toast.makeText(requireContext(), "Filters coming soon", Toast.LENGTH_SHORT).show());
+        android.widget.ImageView ivMessages = v.findViewById(R.id.ivMessages);
+        if (ivMessages != null) {
+            ivMessages.setOnClickListener(vw -> {
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                        .add(R.id.fragmentContainer, new MessagesFragment())
+                        .addToBackStack(null)
+                        .commit();
+            });
+        }
 
-        // View all
-        view.findViewById(R.id.tvViewAll).setOnClickListener(v ->
-                Toast.makeText(requireContext(), "All categories", Toast.LENGTH_SHORT).show());
+        TextView tvViewAll = v.findViewById(R.id.tvViewAll);
+        if (tvViewAll != null) tvViewAll.setOnClickListener(vw -> {
+            selectedCategory = "ALL";
+            resetCategoryUI();
+            applyCategory();
+        });
     }
 
     private void setupCategoryFilters() {
-        catHouses.setOnClickListener(v     -> setCategory("HOUSES",     catHouses));
-        catApartments.setOnClickListener(v -> setCategory("APARTMENTS", catApartments));
-        catCondos.setOnClickListener(v     -> setCategory("CONDOS",     catCondos));
-        catVillas.setOnClickListener(v     -> setCategory("VILLAS",     catVillas));
+        if (catHouses     != null) catHouses.setOnClickListener(v     -> setCategory("House",     catHouses));
+        if (catApartments != null) catApartments.setOnClickListener(v -> setCategory("Apartment", catApartments));
+        if (catCondos     != null) catCondos.setOnClickListener(v     -> setCategory("Condo",     catCondos));
+        if (catVillas     != null) catVillas.setOnClickListener(v     -> setCategory("Villa",     catVillas));
     }
 
-    private void setCategory(String category, LinearLayout selected) {
-        selectedCategory = category;
-
-        // Reset all to inactive
-        catHouses.setBackground(requireContext().getDrawable(R.drawable.category_bg_inactive));
-        catApartments.setBackground(requireContext().getDrawable(R.drawable.category_bg_inactive));
-        catCondos.setBackground(requireContext().getDrawable(R.drawable.category_bg_inactive));
-        catVillas.setBackground(requireContext().getDrawable(R.drawable.category_bg_inactive));
-
-        // Set selected active
-        selected.setBackground(requireContext().getDrawable(R.drawable.category_bg_active));
-
-        // Animate selection
-        selected.animate().scaleX(1.05f).scaleY(1.05f).setDuration(100)
-                .withEndAction(() -> selected.animate().scaleX(1f).scaleY(1f).setDuration(100).start())
-                .start();
-
-        filterProperties();
+    private void setCategory(String cat, LinearLayout selected) {
+        selectedCategory = cat;
+        resetCategoryUI();
+        selected.setBackgroundResource(R.drawable.category_bg_active);
+        selected.animate().scaleX(1.06f).scaleY(1.06f).setDuration(100)
+                .withEndAction(() -> selected.animate().scaleX(1f).scaleY(1f).setDuration(100).start()).start();
+        applyCategory();
     }
 
-    private void filterProperties() {
-        List<Property> filtered = new ArrayList<>();
-        for (Property p : propertyList) {
-            if (p.getCategory().equalsIgnoreCase(selectedCategory) ||
-                    selectedCategory.equals("ALL")) {
-                filtered.add(p);
+    private void resetCategoryUI() {
+        if (catHouses     != null) catHouses.setBackgroundResource(R.drawable.category_bg_inactive);
+        if (catApartments != null) catApartments.setBackgroundResource(R.drawable.category_bg_inactive);
+        if (catCondos     != null) catCondos.setBackgroundResource(R.drawable.category_bg_inactive);
+        if (catVillas     != null) catVillas.setBackgroundResource(R.drawable.category_bg_inactive);
+    }
+
+    private void applyCategory() {
+        filteredListings.clear();
+        for (SupabaseManager.ListingData d : allListings) {
+            if (selectedCategory.equals("ALL")) {
+                filteredListings.add(d);
+            } else if (d.category != null) {
+                String filterCat = selectedCategory.toLowerCase();
+                String propCat = d.category.toLowerCase();
+                // Allow "House" to match "HOUSES" and vice-versa
+                if (propCat.contains(filterCat) || filterCat.contains(propCat)) {
+                    filteredListings.add(d);
+                }
             }
         }
-        // Show all if nothing matches
-        adapter.updateList(filtered.isEmpty() ? propertyList : filtered);
+        adapter.updateList(filteredListings);
+        updateEmptyState();
     }
 
-    private void loadFavoriteStates() {
-        for (Property property : propertyList) {
-            property.setFavorited(favoritesManager.isFavorite(property.getId()));
-        }
-    }
-
-    private void loadProperties() {
-        propertyList = new ArrayList<>();
-
-        propertyList.add(new Property(
-                1,
-                "The Glass Pavilion",
-                "888 Skyline Drive, Los Angeles, CA",
-                "$3,450,000",
-                4.9,
-                4, 3, "3,200",
-                2,
-                "NEW LISTING",
-                "APARTMENTS",
-                R.drawable.property_1,
-                "Defined by its seamless integration with the surrounding canyon landscape...",
-                "Elena Rodriguez",
-                "Senior Listing Partner",
-                "This estate offers an unparalleled level of privacy and sophistication.",
-                Arrays.asList("Fiber Optic WiFi", "Infinity Pool", "Private Gym", "Cinema Room"),
-                "EXCLUSIVE LISTING"
-        ));
-
-        propertyList.add(new Property(
-                2,
-                "Desert Monolith",
-                "42 Echo Valley, Austin, TX",
-                "$1,890,000",
-                4.8,
-                3, 2, "2,450",
-                2,
-                "",
-                "HOUSES",
-                R.drawable.property_2,
-                "Rising from the high desert like a sculptural sentinel...",
-                "Marcus Stone",
-                "Luxury Property Advisor",
-                "Desert Monolith is unlike anything else on the market in Austin.",
-                Arrays.asList("Heated Floors", "Rooftop Terrace", "Home Office", "Smart Home"),
-                "CURATED SELECTION"
-        ));
-
-        propertyList.add(new Property(
-                3,
-                "Heritage Manor",
-                "15 Heritage Court, Greenwich, CT",
-                "$5,200,000",
-                5.0,
-                6, 5, "6,100",
-                4,
-                "RARE FIND",
-                "HOUSES",
-                R.drawable.property_3,
-                "Steeped in the quiet grandeur of Greenwich's gold coast...",
-                "Victoria Ashford",
-                "Estate Portfolio Director",
-                "Heritage Manor is the rarest of opportunities.",
-                Arrays.asList("English Gardens", "Library & Study", "Ballroom", "Carriage House"),
-                "RARE FIND"
-        ));
-
-        propertyList.add(new Property(
-                4,
-                "Skyline Penthouse",
-                "One Manhattan West, New York, NY",
-                "$8,750,000",
-                4.9,
-                4, 4, "4,800",
-                0,
-                "",
-                "APARTMENTS",
-                R.drawable.property_1,
-                "Occupying the entire 62nd floor of Manhattan's most celebrated new tower...",
-                "James Whitfield",
-                "Manhattan Luxury Division",
-                "This penthouse is the pinnacle of New York living.",
-                Arrays.asList("Private Elevator", "Concierge 24/7", "Rooftop Pool", "Valet Parking"),
-                "EXCLUSIVE LISTING"
-        ));
-    }
-
-    private void setupRecyclerView() {
-        adapter = new PropertyAdapter(requireContext(), propertyList,
-                new PropertyAdapter.OnPropertyClickListener() {
+    private void setupAdapter() {
+        adapter = new SupabasePropAdapter(requireContext(), filteredListings,
+                new SupabasePropAdapter.OnClickListener() {
                     @Override
-                    public void onPropertyClick(Property property) {
-                        showPropertyDetail(property);
+                    public void onClick(SupabaseManager.ListingData property) {
+                        SupabaseDetailBottomSheet.newInstance(property)
+                                .show(getChildFragmentManager(), "Detail");
                     }
 
                     @Override
-                    public void onFavoriteClick(Property property, int position) {
-                        // Toggle favorite state
-                        boolean newState = !property.isFavorited();
-                        property.setFavorited(newState);
-
-                        // Save to FavoritesManager
-                        if (newState) {
-                            favoritesManager.addFavorite(property.getId());
-                            Toast.makeText(requireContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
-                        } else {
-                            favoritesManager.removeFavorite(property.getId());
-                            Toast.makeText(requireContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
-                        }
-
-                        // Update UI
+                    public void onFavoriteClick(SupabaseManager.ListingData property, int position) {
+                        FavoritesManager.getInstance(requireContext()).toggleFavorite(property.id);
                         adapter.notifyItemChanged(position);
                     }
                 });
-
         rvProperties.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvProperties.setAdapter(adapter);
         rvProperties.setNestedScrollingEnabled(false);
-
-        // Stagger entry animation
-        rvProperties.setAlpha(0f);
-        rvProperties.animate().alpha(1f).setDuration(500).setStartDelay(200).start();
     }
 
-    private void showPropertyDetail(Property property) {
-        PropertyDetailBottomSheet sheet =
-                PropertyDetailBottomSheet.newInstance(property);
-        sheet.show(getChildFragmentManager(), "PropertyDetail");
+    private void loadListings() {
+        showLoading(true);
+        SupabaseManager.FetchParams params = new SupabaseManager.FetchParams();
+        params.limit = 30;
+
+        supabase.fetchListings(params, new SupabaseManager.ListingsCallback() {
+            @Override
+            public void onSuccess(List<SupabaseManager.ListingData> listings) {
+                if (!isAdded()) return;
+                showLoading(false);
+                allListings.clear();
+                allListings.addAll(listings);
+                applyCategory();
+                rvProperties.setAlpha(0f);
+                rvProperties.animate().alpha(1f).setDuration(350).start();
+            }
+            @Override
+            public void onError(String error) {
+                if (!isAdded()) return;
+                showLoading(false);
+                updateEmptyState();
+            }
+        });
+    }
+
+    // ── Realtime callbacks ────────────────────────────────────
+    @Override
+    public void onNewListing(SupabaseManager.ListingData listing) {
+        if (!isAdded()) return;
+        allListings.add(0, listing);
+        if (selectedCategory.equals("ALL") || listing.category.equalsIgnoreCase(selectedCategory)) {
+            filteredListings.add(0, listing);
+            adapter.notifyItemInserted(0);
+            rvProperties.smoothScrollToPosition(0);
+            if (getView() != null) {
+                Snackbar.make(getView(), "✦ New listing: " + listing.title, 3000)
+                        .setBackgroundTint(0xFF3DB8A8).setTextColor(0xFFFFFFFF).show();
+            }
+        }
+        updateEmptyState();
+    }
+
+    @Override
+    public void onListingUpdated(SupabaseManager.ListingData updated) {
+        if (!isAdded()) return;
+        for (int i = 0; i < filteredListings.size(); i++) {
+            if (filteredListings.get(i).id.equals(updated.id)) {
+                filteredListings.set(i, updated);
+                adapter.notifyItemChanged(i);
+                break;
+            }
+        }
+    }
+
+    private void showLoading(boolean show) {
+        if (!isAdded()) return;
+        if (llLoadingState != null) llLoadingState.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (rvProperties   != null) rvProperties.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+    }
+
+    private void updateEmptyState() {
+        if (!isAdded() || llEmptyState == null) return;
+        boolean empty = filteredListings.isEmpty();
+        llEmptyState.setVisibility(empty ? View.VISIBLE : View.GONE);
+        rvProperties.setVisibility(empty ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
     }
 }

@@ -12,9 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.azureestate.models.Property;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -24,10 +23,10 @@ public class FavoritesFragment extends Fragment {
     private LinearLayout llEmptyState;
     private TextView tvFavoriteCount;
     private Button btnBrowseProperties;
-    private PropertyAdapter adapter;
+    
+    private SupabasePropAdapter adapter;
     private FavoritesManager favoritesManager;
-    private List<Property> allProperties;
-    private List<Property> favoriteProperties;
+    private final List<SupabaseManager.ListingData> favoriteProperties = new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -35,7 +34,6 @@ public class FavoritesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
 
         initViews(view);
-        loadAllProperties();
         setupRecyclerView();
         setupClickListeners();
         loadFavorites();
@@ -50,22 +48,21 @@ public class FavoritesFragment extends Fragment {
         btnBrowseProperties = view.findViewById(R.id.btnBrowseProperties);
 
         favoritesManager = FavoritesManager.getInstance(getContext());
-        favoriteProperties = new ArrayList<>();
     }
 
     private void setupRecyclerView() {
-        adapter = new PropertyAdapter(requireContext(), favoriteProperties,
-                new PropertyAdapter.OnPropertyClickListener() {
+        adapter = new SupabasePropAdapter(requireContext(), favoriteProperties,
+                new SupabasePropAdapter.OnClickListener() {
                     @Override
-                    public void onPropertyClick(Property property) {
-                        Toast.makeText(getContext(), property.getTitle(), Toast.LENGTH_SHORT).show();
+                    public void onClick(SupabaseManager.ListingData property) {
+                        SupabaseDetailBottomSheet.newInstance(property)
+                                .show(getChildFragmentManager(), "Detail");
                     }
 
                     @Override
-                    public void onFavoriteClick(Property property, int position) {
+                    public void onFavoriteClick(SupabaseManager.ListingData property, int position) {
                         // Remove from favorites
-                        favoritesManager.removeFavorite(property.getId());
-                        property.setFavorited(false);
+                        favoritesManager.removeFavorite(property.id);
                         favoriteProperties.remove(position);
                         adapter.notifyItemRemoved(position);
                         updateUI();
@@ -85,79 +82,37 @@ public class FavoritesFragment extends Fragment {
         });
     }
 
-    private void loadAllProperties() {
-        allProperties = new ArrayList<>();
-
-        allProperties.add(new Property(
-                1,
-                "The Glass Pavilion",
-                "888 Skyline Drive, Los Angeles, CA",
-                "$3,450,000",
-                4.9,
-                4, 3, "3,200",
-                2,
-                "NEW LISTING",
-                "APARTMENTS",
-                R.drawable.property_1,
-                "Defined by its seamless integration with the surrounding canyon landscape...",
-                "Elena Rodriguez",
-                "Senior Listing Partner",
-                "This estate offers an unparalleled level of privacy and sophistication.",
-                Arrays.asList("Fiber Optic WiFi", "Infinity Pool"),
-                "EXCLUSIVE LISTING"
-        ));
-
-        allProperties.add(new Property(
-                2,
-                "Desert Monolith",
-                "42 Echo Valley, Austin, TX",
-                "$1,890,000",
-                4.8,
-                3, 2, "2,450",
-                2,
-                "",
-                "HOUSES",
-                R.drawable.property_2,
-                "Rising from the high desert like a sculptural sentinel...",
-                "Marcus Stone",
-                "Luxury Property Advisor",
-                "Desert Monolith is unlike anything else on the market in Austin.",
-                Arrays.asList("Heated Floors", "Rooftop Terrace"),
-                "CURATED SELECTION"
-        ));
-
-        allProperties.add(new Property(
-                3,
-                "Heritage Manor",
-                "15 Heritage Court, Greenwich, CT",
-                "$5,200,000",
-                5.0,
-                6, 5, "6,100",
-                4,
-                "RARE FIND",
-                "HOUSES",
-                R.drawable.property_3,
-                "Steeped in the quiet grandeur of Greenwich's gold coast...",
-                "Victoria Ashford",
-                "Estate Portfolio Director",
-                "Heritage Manor is the rarest of opportunities.",
-                Arrays.asList("English Gardens", "Library & Study"),
-                "RARE FIND"
-        ));
-    }
-
     private void loadFavorites() {
-        favoriteProperties.clear();
-        Set<Integer> favoriteIds = favoritesManager.getAllFavoriteIds();
-
-        for (Property property : allProperties) {
-            if (favoriteIds.contains(property.getId())) {
-                property.setFavorited(true);
-                favoriteProperties.add(property);
-            }
+        Set<String> favoriteIds = favoritesManager.getAllFavorites();
+        if (favoriteIds.isEmpty()) {
+            favoriteProperties.clear();
+            updateUI();
+            return;
         }
 
-        updateUI();
+        SupabaseManager.FetchParams params = new SupabaseManager.FetchParams();
+        params.limit = 100; // fetch enough to cover favorites
+        
+        SupabaseManager.getInstance(requireContext()).fetchListings(params, new SupabaseManager.ListingsCallback() {
+            @Override
+            public void onSuccess(List<SupabaseManager.ListingData> listings) {
+                if (!isAdded()) return;
+                favoriteProperties.clear();
+                for (SupabaseManager.ListingData d : listings) {
+                    if (favoriteIds.contains(d.id)) {
+                        favoriteProperties.add(d);
+                    }
+                }
+                updateUI();
+            }
+
+            @Override
+            public void onError(String error) {
+                if (!isAdded()) return;
+                Toast.makeText(getContext(), "Failed to load favorites", Toast.LENGTH_SHORT).show();
+                updateUI();
+            }
+        });
     }
 
     private void updateUI() {

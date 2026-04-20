@@ -28,9 +28,9 @@ public class FilterBottomSheet extends BottomSheetDialogFragment {
     // ── Filter config data class ──
     public static class FilterConfig {
         public String category    = "All Properties";
-        public float  priceMin    = 100_000f;
+        public float  priceMin    = 0f;
         public float  priceMax    = 20_000_000f;
-        public float  areaMin     = 500f;
+        public float  areaMin     = 0f;
         public float  areaMax     = 15_000f;
         public int    minBedrooms = 0;      // 0 = any
         public String sortBy      = "Recommended";
@@ -38,8 +38,8 @@ public class FilterBottomSheet extends BottomSheetDialogFragment {
 
         public boolean isDefault() {
             return category.equals("All Properties")
-                    && priceMin == 100_000f && priceMax == 20_000_000f
-                    && areaMin == 500f && areaMax == 15_000f
+                    && priceMin == 0f && priceMax == 20_000_000f
+                    && areaMin == 0f && areaMax == 15_000f
                     && minBedrooms == 0
                     && sortBy.equals("Recommended")
                     && facilities.isEmpty();

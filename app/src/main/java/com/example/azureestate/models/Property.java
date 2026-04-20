@@ -12,8 +12,8 @@ public class Property {
     private int baths;
     private String sqft;
     private int garages;
-    private String badge;        // "NEW LISTING", "RARE FIND", etc.
-    private String category;     // "HOUSES", "APARTMENTS", "CONDOS"
+    private String badge;
+    private String category;
     private int imageResId;
     private boolean isFavorited;
     private String description;
@@ -21,8 +21,15 @@ public class Property {
     private String agentTitle;
     private String agentQuote;
     private List<String> amenities;
-    private String exclusiveTag;  // "EXCLUSIVE LISTING" etc.
+    private String exclusiveTag;
+    
+    // NEW FIELDS for chat and ownership
+    private String ownerId;
+    private String ownerPhone;
+    private List<String> photos;
+    private String status; // "active", "sold", "pending"
 
+    // Existing constructor
     public Property(int id, String title, String address, String price,
                     double rating, int beds, int baths, String sqft,
                     int garages, String badge, String category,
@@ -48,9 +55,10 @@ public class Property {
         this.amenities = amenities;
         this.exclusiveTag = exclusiveTag;
         this.isFavorited = false;
+        this.status = "active";
     }
 
-    // Getters & Setters
+    // Getters
     public int getId() { return id; }
     public String getTitle() { return title; }
     public String getAddress() { return address; }
@@ -64,11 +72,23 @@ public class Property {
     public String getCategory() { return category; }
     public int getImageResId() { return imageResId; }
     public boolean isFavorited() { return isFavorited; }
-    public void setFavorited(boolean favorited) { isFavorited = favorited; }
     public String getDescription() { return description; }
     public String getAgentName() { return agentName; }
     public String getAgentTitle() { return agentTitle; }
     public String getAgentQuote() { return agentQuote; }
     public List<String> getAmenities() { return amenities; }
     public String getExclusiveTag() { return exclusiveTag; }
+    
+    // NEW Getters
+    public String getOwnerId() { return ownerId; }
+    public String getOwnerPhone() { return ownerPhone; }
+    public List<String> getPhotos() { return photos; }
+    public String getStatus() { return status; }
+
+    // Setters
+    public void setFavorited(boolean favorited) { isFavorited = favorited; }
+    public void setOwnerId(String ownerId) { this.ownerId = ownerId; }
+    public void setOwnerPhone(String ownerPhone) { this.ownerPhone = ownerPhone; }
+    public void setPhotos(List<String> photos) { this.photos = photos; }
+    public void setStatus(String status) { this.status = status; }
 }

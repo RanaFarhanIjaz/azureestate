@@ -1,511 +1,427 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<!--
+    ROOT = LinearLayout match_parent height + vertical orientation
+    This is the KEY FIX:
+      - NestedScrollView gets layout_weight="1"  → fills all space above buttons
+      - Sticky bar gets layout_weight="0"        → always pinned at bottom
+    Previously root was wrap_content which buried the sticky bar off-screen.
+-->
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bottom_sheet_bg">
 
-    <LinearLayout
+    <!-- Drag handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:background="@drawable/drag_handle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="4dp"/>
+
+    <!-- Scrollable area — weight=1 so it fills space above sticky bar -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/bottom_sheet_bg"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        app:behavior_peekHeight="560dp"
-        app:behavior_hideable="true">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never">
 
-        <!-- Drag handle -->
-        <View
-            android:layout_width="40dp"
-            android:layout_height="4dp"
-            android:background="@drawable/drag_handle"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="6dp"/>
-
-        <androidx.core.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
 
+            <!-- Hero Image -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="240dp">
+
+                <ImageView
+                    android:id="@+id/ivDetailImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/property_1"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/image_bottom_white_gradient"/>
+            </FrameLayout>
+
+            <!-- Content -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="100dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="16dp">
 
-                <!-- Property Hero Image -->
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="240dp">
+                <!-- Badge -->
+                <TextView
+                    android:id="@+id/tvExclusiveTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NEW LISTING"
+                    android:textColor="#3DB8A8"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:letterSpacing="0.1"
+                    android:background="@drawable/exclusive_tag_bg"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="gone"/>
 
-                    <ImageView
-                        android:id="@+id/ivDetailImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"/>
-
-                    <!-- Bottom gradient -->
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_gravity="bottom"
-                        android:background="@drawable/image_bottom_white_gradient"/>
-                </FrameLayout>
-
-                <!-- Content padding -->
-                <LinearLayout
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/tvDetailTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:paddingTop="16dp">
+                    android:text="Property Title"
+                    android:textColor="#0D1B2A"
+                    android:textSize="26sp"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:lineSpacingMultiplier="1.1"
+                    android:layout_marginBottom="6dp"/>
 
-                    <!-- Exclusive Tag -->
+                <!-- Address -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/ic_location"
+                        android:tint="#3DB8A8"/>
+
                     <TextView
-                        android:id="@+id/tvExclusiveTag"
+                        android:id="@+id/tvDetailAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="EXCLUSIVE LISTING"
+                        android:text="Address"
                         android:textColor="#3DB8A8"
-                        android:textSize="10sp"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:letterSpacing="0.1"
-                        android:background="@drawable/exclusive_tag_bg"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:layout_marginBottom="10dp"/>
-
-                    <!-- Property Title -->
-                    <TextView
-                        android:id="@+id/tvDetailTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="The Glass Pavilion"
-                        android:textColor="#0D1B2A"
-                        android:textSize="26sp"
-                        android:fontFamily="@font/playfair_display_bold"
-                        android:lineSpacingMultiplier="1.1"
-                        android:layout_marginBottom="6dp"/>
-
-                    <!-- Location -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="16dp">
-
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/ic_location"
-                            android:tint="#3DB8A8"/>
-
-                        <TextView
-                            android:id="@+id/tvDetailAddress"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Bel Air, Los Angeles, CA 90077"
-                            android:textColor="#3DB8A8"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/montserrat_medium"
-                            android:layout_marginStart="5dp"/>
-                    </LinearLayout>
-
-                    <!-- Asking Price label -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Asking Price"
-                        android:textColor="#8A9BB0"
                         android:textSize="12sp"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:layout_marginBottom="4dp"/>
+                        android:fontFamily="@font/montserrat_medium"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
 
-                    <!-- Price -->
-                    <TextView
-                        android:id="@+id/tvDetailPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$12,450,000"
-                        android:textColor="#0D1B2A"
-                        android:textSize="30sp"
-                        android:fontFamily="@font/playfair_display_bold"
-                        android:layout_marginBottom="20dp"/>
+                <!-- Asking Price -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Asking Price"
+                    android:textColor="#8A9BB0"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:layout_marginBottom="4dp"/>
 
-                    <!-- Stats Grid (2x2) -->
-                    <GridLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:columnCount="2"
-                        android:rowCount="2"
-                        android:layout_marginBottom="24dp">
+                <TextView
+                    android:id="@+id/tvDetailPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$0"
+                    android:textColor="#0D1B2A"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:layout_marginBottom="20dp"/>
 
-                        <!-- Bedrooms -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:orientation="vertical"
-                            android:background="@drawable/stat_card_bg"
-                            android:padding="16dp"
-                            android:layout_margin="4dp">
-                            <ImageView
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
-                                android:src="@drawable/ic_bed"
-                                android:tint="#8A9BB0"/>
-                            <TextView
-                                android:id="@+id/tvDetailBeds"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="5"
-                                android:textColor="#0D1B2A"
-                                android:textSize="24sp"
-                                android:fontFamily="@font/playfair_display_bold"
-                                android:layout_marginTop="6dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="BEDROOMS"
-                                android:textColor="#8A9BB0"
-                                android:textSize="9sp"
-                                android:fontFamily="@font/montserrat_semibold"
-                                android:letterSpacing="0.08"/>
-                        </LinearLayout>
+                <!-- Stats 2x2 grid -->
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:rowCount="2"
+                    android:layout_marginBottom="24dp">
 
-                        <!-- Bathrooms -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:orientation="vertical"
-                            android:background="@drawable/stat_card_bg"
-                            android:padding="16dp"
-                            android:layout_margin="4dp">
-                            <ImageView
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
-                                android:src="@drawable/ic_bath"
-                                android:tint="#8A9BB0"/>
-                            <TextView
-                                android:id="@+id/tvDetailBaths"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="6.5"
-                                android:textColor="#0D1B2A"
-                                android:textSize="24sp"
-                                android:fontFamily="@font/playfair_display_bold"
-                                android:layout_marginTop="6dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="BATHROOMS"
-                                android:textColor="#8A9BB0"
-                                android:textSize="9sp"
-                                android:fontFamily="@font/montserrat_semibold"
-                                android:letterSpacing="0.08"/>
-                        </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_columnWeight="1" android:orientation="vertical"
+                        android:background="@drawable/stat_card_bg" android:padding="16dp" android:layout_margin="4dp">
+                        <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                            android:src="@drawable/ic_bed" android:tint="#8A9BB0"/>
+                        <TextView android:id="@+id/tvDetailBeds" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:text="—" android:textColor="#0D1B2A"
+                            android:textSize="24sp" android:fontFamily="@font/playfair_display_bold" android:layout_marginTop="6dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="BEDROOMS" android:textColor="#8A9BB0" android:textSize="9sp"
+                            android:fontFamily="@font/montserrat_semibold" android:letterSpacing="0.08"/>
+                    </LinearLayout>
 
-                        <!-- SqFt -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:orientation="vertical"
-                            android:background="@drawable/stat_card_bg"
-                            android:padding="16dp"
-                            android:layout_margin="4dp">
-                            <ImageView
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
-                                android:src="@drawable/ic_area"
-                                android:tint="#8A9BB0"/>
-                            <TextView
-                                android:id="@+id/tvDetailSqft"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="8,400"
-                                android:textColor="#0D1B2A"
-                                android:textSize="24sp"
-                                android:fontFamily="@font/playfair_display_bold"
-                                android:layout_marginTop="6dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="SQ FT"
-                                android:textColor="#8A9BB0"
-                                android:textSize="9sp"
-                                android:fontFamily="@font/montserrat_semibold"
-                                android:letterSpacing="0.08"/>
-                        </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_columnWeight="1" android:orientation="vertical"
+                        android:background="@drawable/stat_card_bg" android:padding="16dp" android:layout_margin="4dp">
+                        <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                            android:src="@drawable/ic_bath" android:tint="#8A9BB0"/>
+                        <TextView android:id="@+id/tvDetailBaths" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:text="—" android:textColor="#0D1B2A"
+                            android:textSize="24sp" android:fontFamily="@font/playfair_display_bold" android:layout_marginTop="6dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="BATHROOMS" android:textColor="#8A9BB0" android:textSize="9sp"
+                            android:fontFamily="@font/montserrat_semibold" android:letterSpacing="0.08"/>
+                    </LinearLayout>
 
-                        <!-- Garage -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:orientation="vertical"
-                            android:background="@drawable/stat_card_bg"
-                            android:padding="16dp"
-                            android:layout_margin="4dp">
-                            <ImageView
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
-                                android:src="@drawable/ic_garage"
-                                android:tint="#8A9BB0"/>
-                            <TextView
-                                android:id="@+id/tvDetailGarages"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="4"
-                                android:textColor="#0D1B2A"
-                                android:textSize="24sp"
-                                android:fontFamily="@font/playfair_display_bold"
-                                android:layout_marginTop="6dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="CAR GARAGE"
-                                android:textColor="#8A9BB0"
-                                android:textSize="9sp"
-                                android:fontFamily="@font/montserrat_semibold"
-                                android:letterSpacing="0.08"/>
-                        </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_columnWeight="1" android:orientation="vertical"
+                        android:background="@drawable/stat_card_bg" android:padding="16dp" android:layout_margin="4dp">
+                        <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                            android:src="@drawable/ic_area" android:tint="#8A9BB0"/>
+                        <TextView android:id="@+id/tvDetailSqft" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:text="—" android:textColor="#0D1B2A"
+                            android:textSize="24sp" android:fontFamily="@font/playfair_display_bold" android:layout_marginTop="6dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="SQ FT" android:textColor="#8A9BB0" android:textSize="9sp"
+                            android:fontFamily="@font/montserrat_semibold" android:letterSpacing="0.08"/>
+                    </LinearLayout>
 
-                    </GridLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_columnWeight="1" android:orientation="vertical"
+                        android:background="@drawable/stat_card_bg" android:padding="16dp" android:layout_margin="4dp">
+                        <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                            android:src="@drawable/ic_garage" android:tint="#8A9BB0"/>
+                        <TextView android:id="@+id/tvDetailGarages" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:text="—" android:textColor="#0D1B2A"
+                            android:textSize="24sp" android:fontFamily="@font/playfair_display_bold" android:layout_marginTop="6dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="CAR GARAGE" android:textColor="#8A9BB0" android:textSize="9sp"
+                            android:fontFamily="@font/montserrat_semibold" android:letterSpacing="0.08"/>
+                    </LinearLayout>
 
-                    <!-- ─── Architectural Narrative ─── -->
+                </GridLayout>
+
+                <!-- Architectural Narrative -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+                    <View android:layout_width="4dp" android:layout_height="20dp" android:background="#0D1B2A"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Architectural Narrative" android:textColor="#0D1B2A" android:textSize="16sp"
+                        android:fontFamily="@font/playfair_display_bold" android:layout_marginStart="10dp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#5A6B7A"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:lineSpacingMultiplier="1.6"
+                    android:layout_marginBottom="24dp"/>
+
+                <!-- Home Amenities -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Home Amenities" android:textColor="#0D1B2A" android:textSize="16sp"
+                    android:fontFamily="@font/playfair_display_bold" android:layout_marginBottom="14dp"/>
+
+                <GridLayout
+                    android:id="@+id/glAmenities"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:layout_marginBottom="24dp"/>
+
+                <!-- Location -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Location" android:textColor="#0D1B2A" android:textSize="16sp"
+                    android:fontFamily="@font/playfair_display_bold" android:layout_marginBottom="12dp"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:background="@drawable/map_placeholder_bg"
+                    android:layout_marginBottom="8dp">
+                    <ImageView android:layout_width="32dp" android:layout_height="32dp"
+                        android:src="@drawable/ic_location" android:tint="#3DB8A8"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvGetDirections"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Get Directions ↗"
+                    android:textColor="#3DB8A8"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="24dp"/>
+
+                <!-- Owner / Agent card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#0D1B2A"
+                    android:layout_marginBottom="4dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="12dp">
-
-                        <View
-                            android:layout_width="4dp"
-                            android:layout_height="20dp"
-                            android:background="#0D1B2A"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Architectural Narrative"
-                            android:textColor="#0D1B2A"
-                            android:textSize="16sp"
-                            android:fontFamily="@font/playfair_display_bold"
-                            android:layout_marginStart="10dp"/>
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/tvDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="#5A6B7A"
-                        android:textSize="13sp"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:lineSpacingMultiplier="1.6"
-                        android:layout_marginBottom="24dp"/>
-
-                    <!-- ─── Home Amenities ─── -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Home Amenities"
-                        android:textColor="#0D1B2A"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/playfair_display_bold"
-                        android:layout_marginBottom="14dp"/>
-
-                    <GridLayout
-                        android:id="@+id/glAmenities"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:columnCount="2"
-                        android:layout_marginBottom="24dp"/>
-
-                    <!-- ─── Location ─── -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Location"
-                        android:textColor="#0D1B2A"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/playfair_display_bold"
-                        android:layout_marginBottom="12dp"/>
-
-                    <!-- Map placeholder -->
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="160dp"
-                        android:background="@drawable/map_placeholder_bg"
-                        android:layout_marginBottom="8dp">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_location"
-                            android:tint="#3DB8A8"
-                            android:layout_gravity="center"/>
-                    </FrameLayout>
-
-                    <TextView
-                        android:id="@+id/tvGetDirections"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Get Directions ↗"
-                        android:textColor="#3DB8A8"
-                        android:textSize="13sp"
-                        android:fontFamily="@font/montserrat_semibold"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginBottom="24dp"
-                        android:layout_marginTop="8dp"/>
-
-                    <!-- ─── Agent Card ─── -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="0dp"
-                        app:cardBackgroundColor="#0D1B2A"
-                        android:layout_marginBottom="24dp">
+                        android:orientation="vertical"
+                        android:padding="18dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="18dp">
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="12dp">
 
-                            <!-- Agent top row -->
+                            <ImageView
+                                android:id="@+id/ivAgentAvatar"
+                                android:layout_width="44dp"
+                                android:layout_height="44dp"
+                                android:src="@drawable/ic_avatar_placeholder"
+                                android:background="@drawable/circle_bg_teal"
+                                android:scaleType="centerCrop"/>
+
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:gravity="center_vertical"
-                                android:layout_marginBottom="12dp">
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_marginStart="12dp">
 
-                                <ImageView
-                                    android:id="@+id/ivAgentAvatar"
-                                    android:layout_width="44dp"
-                                    android:layout_height="44dp"
-                                    android:src="@drawable/ic_avatar_placeholder"
-                                    android:background="@drawable/circle_bg_teal"
-                                    android:scaleType="centerCrop"/>
-
-                                <LinearLayout
-                                    android:layout_width="0dp"
+                                <TextView
+                                    android:id="@+id/tvAgentName"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:orientation="vertical"
-                                    android:layout_marginStart="12dp">
-
-                                    <TextView
-                                        android:id="@+id/tvAgentName"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Elena Rodriguez"
-                                        android:textColor="#FFFFFF"
-                                        android:textSize="14sp"
-                                        android:fontFamily="@font/montserrat_semibold"/>
-
-                                    <TextView
-                                        android:id="@+id/tvAgentTitle"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Senior Listing Partner"
-                                        android:textColor="#8A9BB0"
-                                        android:textSize="11sp"
-                                        android:fontFamily="@font/montserrat_regular"/>
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <!-- Agent quote -->
-                            <TextView
-                                android:id="@+id/tvAgentQuote"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="#C0D0E0"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/montserrat_light_italic"
-                                android:lineSpacingMultiplier="1.5"
-                                android:layout_marginBottom="14dp"/>
-
-                            <!-- Agent buttons -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:weightSum="2">
-
-                                <Button
-                                    android:id="@+id/btnAgentProfile"
-                                    android:layout_width="0dp"
-                                    android:layout_height="40dp"
-                                    android:layout_weight="1"
-                                    android:text="Profile"
+                                    android:text="Owner"
                                     android:textColor="#FFFFFF"
-                                    android:textSize="13sp"
-                                    android:fontFamily="@font/montserrat_semibold"
-                                    android:background="@drawable/btn_agent_outline"
-                                    android:layout_marginEnd="8dp"/>
+                                    android:textSize="14sp"
+                                    android:fontFamily="@font/montserrat_semibold"/>
 
-                                <Button
-                                    android:id="@+id/btnAgentReviews"
-                                    android:layout_width="0dp"
-                                    android:layout_height="40dp"
-                                    android:layout_weight="1"
-                                    android:text="Reviews"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="13sp"
-                                    android:fontFamily="@font/montserrat_semibold"
-                                    android:background="@drawable/btn_agent_outline"/>
+                                <TextView
+                                    android:id="@+id/tvAgentTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Property Owner"
+                                    android:textColor="#8A9BB0"
+                                    android:textSize="11sp"
+                                    android:fontFamily="@font/montserrat_regular"/>
                             </LinearLayout>
                         </LinearLayout>
-                    </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvAgentQuote"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#C0D0E0"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:lineSpacingMultiplier="1.5"
+                            android:layout_marginBottom="14dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <Button
+                                android:id="@+id/btnAgentProfile"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:text="PROFILE"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:textAllCaps="false"
+                                android:background="@drawable/btn_agent_outline"
+                                android:layout_marginEnd="8dp"/>
+
+                            <Button
+                                android:id="@+id/btnAgentReviews"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:text="REVIEWS"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:textAllCaps="false"
+                                android:background="@drawable/btn_agent_outline"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <!-- ─── Sticky Bottom Buttons ─── -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!--   STICKY BOTTOM ACTION BAR                                 -->
+    <!--   weight="0" + elevation="12dp" → always on top, visible  -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FFFFFF"
+        android:elevation="12dp">
+
+        <!-- Top divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#EEF0F4"/>
+
+        <!-- Buttons row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#FFFFFF"
-            android:padding="16dp"
-            android:weightSum="2"
-            android:elevation="8dp">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="28dp"
+            android:weightSum="2">
 
+            <!-- 📞 Call Owner -->
             <Button
-                android:id="@+id/btnContactAgent"
+                android:id="@+id/btnScheduleTour"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="52dp"
                 android:layout_weight="1"
-                android:text="Contact Agent"
+                android:text="📞  Call Owner"
                 android:textColor="#0D1B2A"
-                android:textSize="14sp"
+                android:textSize="13sp"
+                android:textAllCaps="false"
                 android:fontFamily="@font/montserrat_semibold"
                 android:background="@drawable/btn_outline_dark"
                 android:layout_marginEnd="10dp"/>
 
+            <!-- 💬 Message Owner -->
             <Button
-                android:id="@+id/btnScheduleTour"
+                android:id="@+id/btnContactAgent"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="52dp"
                 android:layout_weight="1"
-                android:text="Schedule Tour"
+                android:text="💬  Message"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp"
+                android:textSize="13sp"
+                android:textAllCaps="false"
                 android:fontFamily="@font/montserrat_semibold"
                 android:background="@drawable/btn_navy_rounded"/>
-        </LinearLayout>
 
+        </LinearLayout>
     </LinearLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

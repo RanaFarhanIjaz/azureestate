@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp">
+
+    <!-- Date header (shown between different days) -->
+    <LinearLayout
+        android:id="@+id/dateHeaderContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:visibility="gone">
+
+        <View android:layout_width="0dp" android:layout_height="1dp"
+            android:layout_weight="1" android:background="#E0E8F0"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/tvDateHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today"
+            android:textColor="#9BAABB"
+            android:textSize="11sp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:background="@drawable/date_header_bg"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"/>
+
+        <View android:layout_width="0dp" android:layout_height="1dp"
+            android:layout_weight="1" android:background="#E0E8F0"
+            android:layout_marginStart="10dp"/>
+    </LinearLayout>
+
+    <!-- Bubble row -->
+    <LinearLayout
+        android:id="@+id/llBubbleWrap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp">
+
+        <!-- Message text bubble -->
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="260dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat_regular"
+            android:lineSpacingMultiplier="1.4"/>
+
+        <!-- Time + read receipt row -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="3dp">
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12:00 PM"
+                android:textColor="#AABBCC"
+                android:textSize="10sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+            <!-- Read receipt (double tick) — only for sent messages -->
+            <ImageView
+                android:id="@+id/ivReadReceipt"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_done_all"
+                android:layout_marginStart="4dp"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

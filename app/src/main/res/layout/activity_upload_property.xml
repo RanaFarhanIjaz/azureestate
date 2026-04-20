@@ -1,0 +1,720 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_page">
+
+    <!-- Top Bar with Back Arrow -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="48dp"
+        android:paddingBottom="12dp"
+        android:background="#FFFFFF">
+
+        <ImageView
+            android:id="@+id/ivUploadBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_back"
+            android:tint="#0D1B2A"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="List Property"
+            android:textSize="18sp"
+            android:textColor="#0D1B2A"
+            android:fontFamily="@font/montserrat_semibold"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <!-- Step Progress Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="#FFFFFF">
+
+        <TextView
+            android:id="@+id/tvStepLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Step 1 of 4 — Photos"
+            android:textSize="12sp"
+            android:textColor="#7A8899"
+            android:fontFamily="@font/montserrat_semibold"
+            android:layout_marginBottom="12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/stepBar1"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/step_dot_active"
+                android:layout_marginEnd="4dp"/>
+
+            <View
+                android:id="@+id/stepBar2"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/step_dot_inactive"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"/>
+
+            <View
+                android:id="@+id/stepBar3"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/step_dot_inactive"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"/>
+
+            <View
+                android:id="@+id/stepBar4"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/step_dot_inactive"
+                android:layout_marginStart="4dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Scrollable Content Area -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Step 1: Photos -->
+            <LinearLayout
+                android:id="@+id/layoutUploadStep1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Photos"
+                    android:textSize="22sp"
+                    android:textColor="@color/navy_dark"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add up to 10 photos. The first photo will be the cover image."
+                    android:textSize="13sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:layout_marginBottom="20dp"/>
+
+                <Button
+                    android:id="@+id/btnAddPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="+ Add Photos"
+                    android:textAllCaps="false"
+                    android:textColor="@color/teal_primary"
+                    android:background="@drawable/btn_outline_teal"
+                    android:layout_marginBottom="16dp"/>
+
+                <androidx.gridlayout.widget.GridLayout
+                    android:id="@+id/photoGrid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:columnCount="3"
+                    android:layout_marginBottom="24dp"/>
+
+                <Button
+                    android:id="@+id/btnStep1Next"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="Continue →"
+                    android:textAllCaps="false"
+                    android:textSize="15sp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:background="@drawable/btn_sign_in"/>
+
+            </LinearLayout>
+
+            <!-- Step 2: Basics -->
+            <LinearLayout
+                android:id="@+id/layoutUploadStep2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Property Basics"
+                    android:textSize="22sp"
+                    android:textColor="@color/navy_dark"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Property Title"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_marginBottom="8dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="e.g., Modern Beachfront Villa"
+                        android:padding="14dp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Price -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price (USD)"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_marginBottom="8dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="$0,000,000"
+                        android:inputType="numberDecimal"
+                        android:padding="14dp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Address -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_marginBottom="8dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Full property address"
+                        android:padding="14dp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Category -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Property Type"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_marginBottom="8dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="24dp">
+
+                    <TextView
+                        android:id="@+id/uploadCatHouse"
+                        android:layout_width="0dp"
+                        android:layout_height="36dp"
+                        android:layout_weight="1"
+                        android:text="HOUSES"
+                        android:gravity="center"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:background="@drawable/chip_inactive"
+                        android:textColor="#7A8899"
+                        android:layout_marginEnd="6dp"/>
+
+                    <TextView
+                        android:id="@+id/uploadCatApartment"
+                        android:layout_width="0dp"
+                        android:layout_height="36dp"
+                        android:layout_weight="1"
+                        android:text="APARTMENTS"
+                        android:gravity="center"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:background="@drawable/chip_inactive"
+                        android:textColor="#7A8899"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="3dp"/>
+
+                    <TextView
+                        android:id="@+id/uploadCatCondo"
+                        android:layout_width="0dp"
+                        android:layout_height="36dp"
+                        android:layout_weight="1"
+                        android:text="CONDOS"
+                        android:gravity="center"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:background="@drawable/chip_inactive"
+                        android:textColor="#7A8899"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="3dp"/>
+
+                    <TextView
+                        android:id="@+id/uploadCatVilla"
+                        android:layout_width="0dp"
+                        android:layout_height="36dp"
+                        android:layout_weight="1"
+                        android:text="VILLAS"
+                        android:gravity="center"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:background="@drawable/chip_inactive"
+                        android:textColor="#7A8899"
+                        android:layout_marginStart="6dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <Button
+                        android:id="@+id/btnStep2Back"
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_weight="1"
+                        android:text="Back"
+                        android:textAllCaps="false"
+                        android:textSize="14sp"
+                        android:textColor="#0D1B2A"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:background="@drawable/btn_outline_dark"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnStep2Next"
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_weight="1"
+                        android:text="Continue"
+                        android:textAllCaps="false"
+                        android:textSize="14sp"
+                        android:textColor="#FFFFFF"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:background="@drawable/btn_sign_in"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Step 3: Details -->
+            <LinearLayout
+                android:id="@+id/layoutUploadStep3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Property Details"
+                    android:textSize="22sp"
+                    android:textColor="@color/navy_dark"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Beds -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bedrooms"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_marginBottom="8dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilBeds"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etBeds"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="4"
+                        android:inputType="number"
+                        android:padding="14dp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Baths -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bathrooms"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_marginBottom="8dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilBaths"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etBaths"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="3"
+                        android:inputType="number"
+                        android:padding="14dp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Sqft -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Square Feet"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_marginBottom="8dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilSqft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etSqft"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="3,200"
+                        android:inputType="number"
+                        android:padding="14dp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Garages -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Garages"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_marginBottom="8dp"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etGarages"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="2"
+                    android:inputType="number"
+                    android:padding="14dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Description -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_marginBottom="8dp"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Describe your property..."
+                    android:minHeight="100dp"
+                    android:gravity="top"
+                    android:padding="14dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Contact Phone -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Contact Phone"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:layout_marginBottom="8dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilContactPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etContactPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="+1 (555) 000-0000"
+                        android:inputType="phone"
+                        android:padding="14dp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <Button
+                        android:id="@+id/btnStep3Back"
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_weight="1"
+                        android:text="Back"
+                        android:textAllCaps="false"
+                        android:textSize="14sp"
+                        android:textColor="#0D1B2A"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:background="@drawable/btn_outline_dark"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnStep3Next"
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_weight="1"
+                        android:text="Review"
+                        android:textAllCaps="false"
+                        android:textSize="14sp"
+                        android:textColor="#FFFFFF"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:background="@drawable/btn_sign_in"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Step 4: Review  Publish -->
+            <LinearLayout
+                android:id="@+id/layoutUploadStep4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Review and Publish"
+                    android:textSize="22sp"
+                    android:textColor="@color/navy_dark"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:layout_marginBottom="16dp"/>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/ivPreviewCover"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"
+                            android:scaleType="centerCrop"
+                            android:background="@color/navy_accent"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+
+                            <TextView
+                                android:id="@+id/tvPreviewTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Property Title"
+                                android:textSize="16sp"
+                                android:textColor="@color/navy_dark"
+                                android:fontFamily="@font/montserrat_bold"/>
+
+                            <TextView
+                                android:id="@+id/tvPreviewAddress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Address"
+                                android:textSize="12sp"
+                                android:textColor="@color/text_secondary"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:layout_marginTop="4dp"/>
+
+                            <TextView
+                                android:id="@+id/tvPreviewPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="$0"
+                                android:textSize="14sp"
+                                android:textColor="@color/teal_primary"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:layout_marginTop="4dp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <CheckBox
+                    android:id="@+id/cbListingTerms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="I confirm that I own or have authority to list this property"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_primary"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:layout_marginBottom="16dp"
+                    android:buttonTint="@color/teal_primary"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <Button
+                        android:id="@+id/btnStep4Back"
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_weight="1"
+                        android:text="Back"
+                        android:textAllCaps="false"
+                        android:textSize="14sp"
+                        android:textColor="#0D1B2A"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:background="@drawable/btn_outline_dark"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnPublish"
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_weight="1"
+                        android:text="Publish Listing"
+                        android:textAllCaps="false"
+                        android:textSize="14sp"
+                        android:textColor="#FFFFFF"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:background="@drawable/btn_sign_in"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </ScrollView>
+
+</LinearLayout>

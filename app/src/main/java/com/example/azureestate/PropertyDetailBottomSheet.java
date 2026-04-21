@@ -109,8 +109,9 @@ public class PropertyDetailBottomSheet extends BottomSheetDialogFragment {
         ((TextView) view.findViewById(R.id.tvAgentTitle)).setText(property.getAgentTitle());
         ((TextView) view.findViewById(R.id.tvAgentQuote)).setText("\"" + property.getAgentQuote() + "\"");
 
-        // Get Directions
-        view.findViewById(R.id.tvGetDirections).setOnClickListener(v -> openMaps());
+        // Location Card
+        view.findViewById(R.id.btnOpenMap).setOnClickListener(v -> openMaps());
+        ((TextView) view.findViewById(R.id.tvLocationSubtitle)).setText(property.getAddress());
 
 
 

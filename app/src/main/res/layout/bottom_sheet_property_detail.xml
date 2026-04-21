@@ -238,27 +238,67 @@
                     android:text="Location" android:textColor="#0D1B2A" android:textSize="16sp"
                     android:fontFamily="@font/playfair_display_bold" android:layout_marginBottom="12dp"/>
 
-                <FrameLayout
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnOpenMap"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:background="@drawable/map_placeholder_bg"
-                    android:layout_marginBottom="8dp">
-                    <ImageView android:layout_width="32dp" android:layout_height="32dp"
-                        android:src="@drawable/ic_location" android:tint="#3DB8A8"
-                        android:layout_gravity="center"/>
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tvGetDirections"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Get Directions ↗"
-                    android:textColor="#3DB8A8"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="24dp"/>
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#F1F4F8"
+                    android:layout_marginBottom="24dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_location"
+                            android:tint="#3DB8A8"
+                            android:background="@drawable/circle_bg_teal"
+                            android:backgroundTint="#E0F2F1"
+                            android:padding="10dp"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="View on Map"
+                                android:textColor="#0D1B2A"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_semibold"/>
+
+                            <TextView
+                                android:id="@+id/tvLocationSubtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Open in Google Maps for directions"
+                                android:textColor="#8A9BB0"
+                                android:textSize="11sp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_chevron_right"
+                            android:tint="#3DB8A8"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
                 <!-- Owner / Agent card -->
                 <androidx.cardview.widget.CardView

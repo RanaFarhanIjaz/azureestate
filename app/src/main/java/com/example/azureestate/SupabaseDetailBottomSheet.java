@@ -80,7 +80,7 @@ public class SupabaseDetailBottomSheet extends BottomSheetDialogFragment {
         }
 
         // Get Directions
-        View directions = view.findViewById(R.id.tvGetDirections);
+        View directions = view.findViewById(R.id.btnOpenMap);
         if (directions != null) {
             directions.setOnClickListener(v -> {
                 Uri mapUri = Uri.parse("geo:0,0?q=" + Uri.encode(listing.address));

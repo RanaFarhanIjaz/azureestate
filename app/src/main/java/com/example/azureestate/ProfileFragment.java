@@ -32,7 +32,7 @@ public class ProfileFragment extends Fragment {
     private Button btnSignOut;
 
     // Row containers
-    private View rowMyProperties, rowWishlist, rowMessages;
+    private View rowWishlist, rowMessages;
     private View rowPrivacy, rowTerms, rowHelp, rowAbout;
 
     @Nullable
@@ -77,7 +77,6 @@ public class ProfileFragment extends Fragment {
         tvEmail        = view.findViewById(R.id.tvEmail);
         btnSignOut     = view.findViewById(R.id.btnSignOut);
 
-        rowMyProperties  = view.findViewById(R.id.rowMyProperties);
         rowWishlist      = view.findViewById(R.id.rowWishlist);
         rowMessages      = view.findViewById(R.id.rowMessages);
         rowPrivacy       = view.findViewById(R.id.rowPrivacy);
@@ -90,7 +89,6 @@ public class ProfileFragment extends Fragment {
     //  Configure each row's icon + label using the shared layout
     // ─────────────────────────────────────────────────────────────
     private void setupRows() {
-        configRow(rowMyProperties,  R.drawable.ic_house,     "My Properties",    null);
         configRow(rowWishlist,      R.drawable.ic_favorite,  "Wishlist",          null);
         configRow(rowMessages,      R.drawable.ic_message,   "Messages",          null);
         configRow(rowPrivacy,       R.drawable.ic_privacy,   "Privacy Policy",    null);
@@ -129,7 +127,6 @@ public class ProfileFragment extends Fragment {
     // ─────────────────────────────────────────────────────────────
     private void setupClickListeners() {
         // Activity rows — functional
-        safe(rowMyProperties, () -> Toast.makeText(getContext(), "My Properties", Toast.LENGTH_SHORT).show());
         safe(rowWishlist, () -> {
             if (getActivity() instanceof MainActivity) {
                 ((MainActivity) getActivity()).navigateToFavorites();

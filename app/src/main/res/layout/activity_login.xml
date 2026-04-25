@@ -225,17 +225,22 @@
                 android:layout_marginBottom="24dp">
 
                 <!-- Google Button -->
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnGoogle"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:text="Google"
+                    android:text="Sign in with Google"
                     android:textColor="#0D1B2A"
                     android:textSize="14sp"
                     android:fontFamily="@font/montserrat_medium"
-                    android:drawableStart="@drawable/ic_google"
-                    android:drawablePadding="8dp"
-                    android:background="@drawable/btn_social"/>
+                    app:icon="@drawable/ic_google"
+                    app:iconTint="@null"
+                    app:iconGravity="textStart"
+                    app:iconPadding="12dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:strokeColor="#E0E8F0"
+                    app:strokeWidth="1dp"
+                    app:cornerRadius="12dp"/>
             </LinearLayout>
 
             <!-- Apply for Membership -->

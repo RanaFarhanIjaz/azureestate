@@ -72,7 +72,7 @@
                         android:textSize="14sp" android:fontFamily="@font/montserrat_semibold"/>
                     <TextView android:id="@+id/tvChatSubtitle"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="About: Property Name" android:textColor="#8AAFC8"
+                        android:text="Property Name" android:textColor="#8AAFC8"
                         android:textSize="11sp" android:fontFamily="@font/montserrat_regular"/>
                 </LinearLayout>
             </LinearLayout>
@@ -145,12 +145,6 @@
                     android:text="$3,450,000" android:textColor="#3DB8A8"
                     android:textSize="12sp" android:fontFamily="@font/playfair_display_bold"/>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvViewProperty"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="View ↗" android:textColor="#3DB8A8"
-                android:textSize="12sp" android:fontFamily="@font/montserrat_semibold"/>
         </LinearLayout>
     </LinearLayout>
 

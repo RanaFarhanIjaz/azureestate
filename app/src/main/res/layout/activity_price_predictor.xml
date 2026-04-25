@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F6F8"
+    android:overScrollMode="never"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="40dp">
+
+        <!-- ── Hero Header ── -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/profile_hero_bg">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="top|start"
+                android:layout_marginTop="48dp"
+                android:layout_marginStart="18dp"
+                android:src="@drawable/ic_back"
+                android:tint="#FFFFFF"
+                android:background="@drawable/circle_bg"
+                android:padding="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:paddingStart="22dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="22dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AI Price Estimator"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:fontFamily="@font/playfair_display_bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Get an instant ML-powered price prediction"
+                    android:textColor="#8AAFC8"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- ── Model Badge ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✦  Linear Regression  ·  R² = 0.65  ·  Trained on 545 properties"
+                android:textColor="#3DB8A8"
+                android:textSize="10sp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:letterSpacing="0.04"
+                android:background="@drawable/membership_badge_bg"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"/>
+        </LinearLayout>
+
+        <!-- ══════════════════════════════════ -->
+        <!-- SECTION 1: Property Basics        -->
+        <!-- ══════════════════════════════════ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Property Basics"
+            android:textColor="#0D1B2A"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Area -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Area (sq ft)"
+                    android:textColor="#7A8899"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:letterSpacing="0.04"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="e.g. 5000"
+                        android:inputType="number"
+                        android:textSize="14sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Bedrooms -->
+                <TextView
+                    android:id="@+id/tvBedrooms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bedrooms: 1"
+                    android:textColor="#0D1B2A"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/montserrat_semibold"/>
+                <SeekBar
+                    android:id="@+id/sbBedrooms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="5"
+                    android:progressTint="@color/teal_primary"
+                    android:thumbTint="@color/teal_primary"
+                    android:layout_marginBottom="12dp"/>
+
+                <!-- Bathrooms -->
+                <TextView
+                    android:id="@+id/tvBathrooms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bathrooms: 1"
+                    android:textColor="#0D1B2A"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/montserrat_semibold"/>
+                <SeekBar
+                    android:id="@+id/sbBathrooms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="3"
+                    android:progressTint="@color/teal_primary"
+                    android:thumbTint="@color/teal_primary"
+                    android:layout_marginBottom="12dp"/>
+
+                <!-- Stories -->
+                <TextView
+                    android:id="@+id/tvStories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stories: 1"
+                    android:textColor="#0D1B2A"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/montserrat_semibold"/>
+                <SeekBar
+                    android:id="@+id/sbStories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="3"
+                    android:progressTint="@color/teal_primary"
+                    android:thumbTint="@color/teal_primary"
+                    android:layout_marginBottom="12dp"/>
+
+                <!-- Parking -->
+                <TextView
+                    android:id="@+id/tvParking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Parking: 0"
+                    android:textColor="#0D1B2A"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/montserrat_semibold"/>
+                <SeekBar
+                    android:id="@+id/sbParking"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="3"
+                    android:progressTint="@color/teal_primary"
+                    android:thumbTint="@color/teal_primary"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════ -->
+        <!-- SECTION 2: Furnishing             -->
+        <!-- ══════════════════════════════════ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Furnishing Status"
+            android:textColor="#0D1B2A"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <Spinner
+                android:id="@+id/spFurnishing"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════ -->
+        <!-- SECTION 3: Features (Toggles)     -->
+        <!-- ══════════════════════════════════ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Property Features"
+            android:textColor="#0D1B2A"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <!-- Switch row helper macro-like repeated layout -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:paddingStart="16dp" android:paddingEnd="16dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="On Main Road"
+                        android:textColor="#0D1B2A" android:textSize="13sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+                    <Switch android:id="@+id/swMainRoad" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:checked="true"/>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="#F4F6F8" android:layout_marginStart="16dp"/>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:paddingStart="16dp" android:paddingEnd="16dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="Guest Room"
+                        android:textColor="#0D1B2A" android:textSize="13sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+                    <Switch android:id="@+id/swGuestRoom" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="#F4F6F8" android:layout_marginStart="16dp"/>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:paddingStart="16dp" android:paddingEnd="16dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="Basement"
+                        android:textColor="#0D1B2A" android:textSize="13sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+                    <Switch android:id="@+id/swBasement" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="#F4F6F8" android:layout_marginStart="16dp"/>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:paddingStart="16dp" android:paddingEnd="16dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="Hot Water Heating"
+                        android:textColor="#0D1B2A" android:textSize="13sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+                    <Switch android:id="@+id/swHotWater" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="#F4F6F8" android:layout_marginStart="16dp"/>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:paddingStart="16dp" android:paddingEnd="16dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="Air Conditioning"
+                        android:textColor="#0D1B2A" android:textSize="13sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+                    <Switch android:id="@+id/swAC" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="#F4F6F8" android:layout_marginStart="16dp"/>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:paddingStart="16dp" android:paddingEnd="16dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="Preferred Area"
+                        android:textColor="#0D1B2A" android:textSize="13sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+                    <Switch android:id="@+id/swPrefArea" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════ -->
+        <!-- PREDICT BUTTON                    -->
+        <!-- ══════════════════════════════════ -->
+        <Button
+            android:id="@+id/btnPredict"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Predict Price"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/montserrat_semibold"
+            android:background="@drawable/btn_teal"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="24dp"/>
+
+        <!-- ══════════════════════════════════ -->
+        <!-- RESULT CARD                       -->
+        <!-- ══════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/resultCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="#0D1B2A">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="28dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✦  ML ESTIMATE"
+                    android:textColor="#3DB8A8"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. 0"
+                    android:textColor="#FFFFFF"
+                    android:textSize="32sp"
+                    android:fontFamily="@font/playfair_display_bold"/>
+
+                <TextView
+                    android:id="@+id/tvResultLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Estimated Market Price"
+                    android:textColor="#8AAFC8"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:layout_marginTop="6dp"/>
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="1dp"
+                    android:background="#1A3558"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Based on Linear Regression · R² = 0.65"
+                    android:textColor="#4A6B85"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

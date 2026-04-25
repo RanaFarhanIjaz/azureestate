@@ -135,12 +135,7 @@
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp">
 
-                <!-- My Properties -->
-                <include layout="@layout/item_profile_row"
-                    android:id="@+id/rowMyProperties"/>
-
-                <View android:layout_width="match_parent" android:layout_height="1dp"
-                    android:background="#F4F6F8" android:layout_marginStart="58dp"/>
+                <!-- Removed My Properties -->
 
                 <!-- Wishlist / Favorites -->
                 <include layout="@layout/item_profile_row"
@@ -220,7 +215,7 @@
             android:text="Sign Out"
             android:textAllCaps="false"
             android:textSize="14sp"
-            android:textColor="#E53935"
+            android:textColor="#FFFFFF"
             android:fontFamily="@font/montserrat_semibold"
             android:background="@drawable/btn_signout"
             android:layout_marginStart="18dp"

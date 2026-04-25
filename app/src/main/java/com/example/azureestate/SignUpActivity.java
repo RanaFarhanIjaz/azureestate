@@ -542,8 +542,10 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void setupContactSales() {
-        tvContactSales.setOnClickListener(v ->
-                Toast.makeText(this, "Contact Sales coming soon", Toast.LENGTH_SHORT).show());
+        tvContactSales.setOnClickListener(v -> {
+            Intent intent = new Intent(SignUpActivity.this, ContactSalesActivity.class);
+            startActivity(intent);
+        });
     }
 
     // ─────────────────────────────────────────────────────────────

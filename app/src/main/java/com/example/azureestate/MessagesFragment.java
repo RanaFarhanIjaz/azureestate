@@ -75,6 +75,19 @@ public class MessagesFragment extends Fragment {
     // ─────────────────────────────────────────────────────────────
     private void setupRecyclerView() {
         adapter = new ConversationAdapter(filteredList, item -> {
+            // Immediately clear unread badge for this conversation
+            if (!myUid.isEmpty() && item.chatId != null) {
+                FirebaseDatabase.getInstance()
+                        .getReference("conversations")
+                        .child(myUid)
+                        .child(item.chatId)
+                        .child("unreadFor")
+                        .setValue(null);
+                // Update local model so badge disappears instantly without waiting for Firebase
+                item.hasUnread = false;
+                adapter.notifyDataSetChanged();
+            }
+
             // Open chat room
             Intent intent = new Intent(requireContext(), ChatRoomActivity.class);
             intent.putExtra(ChatRoomActivity.EXTRA_CHAT_ID,         item.chatId);

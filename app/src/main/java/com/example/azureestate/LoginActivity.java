@@ -160,7 +160,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setupContactSalesClick() {
         tvContactSales.setOnClickListener(v -> {
-            Toast.makeText(this, "Contact Sales page coming soon", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this, ContactSalesActivity.class);
+            startActivity(intent);
         });
     }
 

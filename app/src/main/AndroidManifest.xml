@@ -63,6 +63,17 @@
             android:theme="@style/Theme.AzureEstate"
             android:exported="false"/>
 
+        <activity
+            android:name=".ContactSalesActivity"
+            android:theme="@style/Theme.AzureEstate"
+            android:exported="false"/>
+
+        <activity
+            android:name=".PricePredictorActivity"
+            android:theme="@style/Theme.AzureEstate"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

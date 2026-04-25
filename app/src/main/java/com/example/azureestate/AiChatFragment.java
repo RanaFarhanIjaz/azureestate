@@ -41,7 +41,7 @@ public class AiChatFragment extends Fragment {
 
     // ── Replace with your actual Groq API key ──
     // Get one free at: https://console.groq.com
-    private static final String GROQ_API_KEY = "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";
+    private static final String GROQ_API_KEY = "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";
     private static final String GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
     
     // Use a confirmed working model

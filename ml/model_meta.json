@@ -1,0 +1,36 @@
+{
+  "model_name": "Linear Regression",
+  "features": [
+    "area",
+    "bedrooms",
+    "bathrooms",
+    "stories",
+    "mainroad",
+    "guestroom",
+    "basement",
+    "hotwaterheating",
+    "airconditioning",
+    "parking",
+    "prefarea",
+    "furnishingstatus"
+  ],
+  "target": "price",
+  "r2_test": 0.6495,
+  "mae_test": 979679.69,
+  "rmse_test": 1331071.42,
+  "cv_r2_mean": -9.9107,
+  "cv_r2_std": 7.4065,
+  "furnish_map": {
+    "unfurnished": 0,
+    "semi-furnished": 1,
+    "furnished": 2
+  },
+  "binary_cols": [
+    "mainroad",
+    "guestroom",
+    "basement",
+    "hotwaterheating",
+    "airconditioning",
+    "prefarea"
+  ]
+}

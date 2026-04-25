@@ -46,7 +46,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private EditText etChatMessage;
     private CardView btnSendMsg;
     private ImageView ivChatBack, btnCallOwner, btnChatMore, btnAttach;
-    private TextView tvOtherName, tvChatSubtitle, tvStripTitle, tvStripPrice, tvViewProperty;
+    private TextView tvOtherName, tvChatSubtitle, tvStripTitle, tvStripPrice;
 
     // Data
     private final List<RealChatMessage> messageList = new ArrayList<>();
@@ -104,11 +104,11 @@ public class ChatRoomActivity extends AppCompatActivity {
         tvChatSubtitle  = findViewById(R.id.tvChatSubtitle);
         tvStripTitle    = findViewById(R.id.tvStripTitle);
         tvStripPrice    = findViewById(R.id.tvStripPrice);
-        tvViewProperty  = findViewById(R.id.tvViewProperty);
+        // tvViewProperty removed — no functional navigation available from chat room
 
         // Populate header
         tvOtherName.setText(otherUserName != null ? otherUserName : "Owner");
-        tvChatSubtitle.setText("About: " + (propertyTitle != null ? propertyTitle : "Property"));
+        tvChatSubtitle.setText(propertyTitle != null ? propertyTitle : "Property");
         tvStripTitle.setText(propertyTitle != null ? propertyTitle : "");
         tvStripPrice.setText(propertyPrice != null ? propertyPrice : "");
     }
@@ -154,10 +154,6 @@ public class ChatRoomActivity extends AppCompatActivity {
             pick.setType("image/*");
             startActivityForResult(pick, 101);
         });
-
-        // ── VIEW PROPERTY ──
-        tvViewProperty.setOnClickListener(v ->
-                Toast.makeText(this, "Opening property details…", Toast.LENGTH_SHORT).show());
 
         // ── MORE OPTIONS ──
         btnChatMore.setOnClickListener(v ->
@@ -260,13 +256,26 @@ public class ChatRoomActivity extends AppCompatActivity {
     }
 
     private void markAsRead() {
-        // Mark all messages from other user as read
+        if (chatId == null || currentUserId.isEmpty() || otherUserId == null) return;
+
+        // 1. Mark individual messages from the other user as read
         chatRef.orderByChild("senderId").equalTo(otherUserId).get()
                 .addOnSuccessListener(snapshot -> {
                     for (DataSnapshot child : snapshot.getChildren()) {
-                        child.getRef().child("read").setValue(true);
+                        Boolean alreadyRead = child.child("read").getValue(Boolean.class);
+                        if (alreadyRead == null || !alreadyRead) {
+                            child.getRef().child("read").setValue(true);
+                        }
                     }
                 });
+
+        // 2. Clear the unreadFor flag on my conversation index entry
+        //    so the inbox badge disappears immediately
+        DatabaseReference myConvRef = FirebaseDatabase.getInstance()
+                .getReference("conversations")
+                .child(currentUserId)
+                .child(chatId);
+        myConvRef.child("unreadFor").setValue(null);
     }
 
     // ─────────────────────────────────────────────────────────────

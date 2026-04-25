@@ -62,6 +62,11 @@ public class SupabaseManager {
         void onError(String error);
     }
 
+    public interface InquiryCallback {
+        void onSuccess();
+        void onError(String error);
+    }
+
     public interface RealtimeListener {
         void onNewListing(ListingData listing);
         void onListingUpdated(ListingData listing);
@@ -214,6 +219,38 @@ public class SupabaseManager {
                     + " " + (response.body() != null ? response.body().string() : ""));
         }
         return null;
+    }
+
+    public void submitInquiry(String name, String email, String phone, String message, InquiryCallback callback) {
+        executor.execute(() -> {
+            try {
+                JSONObject body = new JSONObject();
+                body.put("name",    name);
+                body.put("email",   email);
+                body.put("phone",   phone);
+                body.put("message", message);
+                body.put("status",  "pending");
+
+                Request request = new Request.Builder()
+                        .url(SupabaseConfig.REST_URL + "sales_inquiries")
+                        .addHeader("apikey",        SupabaseConfig.ANON_KEY)
+                        .addHeader("Authorization", "Bearer " + SupabaseConfig.ANON_KEY)
+                        .addHeader("Content-Type",  "application/json")
+                        .post(RequestBody.create(body.toString(), MediaType.parse("application/json")))
+                        .build();
+
+                Response response = http.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    mainHandler.post(callback::onSuccess);
+                } else {
+                    String errBody = response.body() != null ? response.body().string() : "Unknown error";
+                    mainHandler.post(() -> callback.onError("Failed to submit: " + response.code() + " " + errBody));
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Inquiry error", e);
+                mainHandler.post(() -> callback.onError(e.getMessage()));
+            }
+        });
     }
 
     // ══════════════════════════════════════════════════════════

@@ -1,5 +1,6 @@
 package com.example.azureestate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,12 +62,22 @@ public class HomeFragment extends Fragment
         android.widget.ImageView ivMessages = v.findViewById(R.id.ivMessages);
         if (ivMessages != null) {
             ivMessages.setOnClickListener(vw -> {
-                requireActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                        .add(R.id.fragmentContainer, new MessagesFragment())
-                        .addToBackStack(null)
-                        .commit();
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).selectTab(3);
+                }
+            });
+        }
+
+        // Avatar → Profile tab
+        android.widget.ImageView ivAvatar = v.findViewById(R.id.ivAvatar);
+        if (ivAvatar != null) {
+            ivAvatar.setOnClickListener(vw -> {
+                ivAvatar.animate().scaleX(0.88f).scaleY(0.88f).setDuration(80)
+                        .withEndAction(() -> ivAvatar.animate().scaleX(1f).scaleY(1f).setDuration(80).start())
+                        .start();
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).selectTab(5);
+                }
             });
         }
 
@@ -76,6 +87,17 @@ public class HomeFragment extends Fragment
             resetCategoryUI();
             applyCategory();
         });
+
+        // Price Estimator card
+        View cardPriceEstimator = v.findViewById(R.id.cardPriceEstimator);
+        if (cardPriceEstimator != null) {
+            cardPriceEstimator.setOnClickListener(vw -> {
+                cardPriceEstimator.animate().scaleX(0.97f).scaleY(0.97f).setDuration(80)
+                        .withEndAction(() -> cardPriceEstimator.animate().scaleX(1f).scaleY(1f).setDuration(80).start())
+                        .start();
+                startActivity(new Intent(requireContext(), PricePredictorActivity.class));
+            });
+        }
     }
 
     private void setupCategoryFilters() {

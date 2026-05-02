@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/bg_page">
 
     <!-- Fragment Container -->
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottomNavBar"/>
+        android:layout_height="match_parent"/>
 
     <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -24,7 +24,7 @@
         app:elevation="6dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="110dp"
         android:visibility="visible"/>
 
     <!-- Bottom Navigation Bar -->
@@ -33,10 +33,13 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
         android:orientation="horizontal"
         android:background="@drawable/bottom_nav_bg"
-        android:elevation="10dp"
-        android:weightSum="6">
+        android:elevation="20dp"
+        android:weightSum="5">
 
         <!-- Discover (Home) -->
         <LinearLayout
@@ -134,37 +137,6 @@
                 android:layout_marginTop="3dp"/>
         </LinearLayout>
 
-        <!-- Messages -->
-        <LinearLayout
-            android:id="@+id/navMessages"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true">
-
-            <ImageView
-                android:id="@+id/ivNavMessages"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/ic_message"
-                android:tint="#9BAABB"/>
-
-            <TextView
-                android:id="@+id/tvNavMessages"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Inbox"
-                android:textColor="#9BAABB"
-                android:textSize="10sp"
-                android:fontFamily="@font/montserrat_regular"
-                android:layout_marginTop="3dp"/>
-        </LinearLayout>
 
         <!-- AI Chat -->
         <LinearLayout

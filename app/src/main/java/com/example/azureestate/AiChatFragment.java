@@ -39,13 +39,10 @@ import okhttp3.Response;
 
 public class AiChatFragment extends Fragment {
 
-    // ── Replace with your actual Groq API key ──
-    // Get one free at: https://console.groq.com
-    private static final String GROQ_API_KEY = "";
+    private static final String GROQ_API_KEY = "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";
     private static final String GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-    
-    // Use a confirmed working model
-    private static final String MODEL = "llama-3.3-70b-versatile";  // Changed from llama3-8b-8192
+
+    private static final String MODEL = "llama-3.3-70b-versatile";
 
     private static final String SYSTEM_PROMPT =
             "You are Estate AI, a luxury real estate assistant for Azure Estate — " +
@@ -124,6 +121,12 @@ public class AiChatFragment extends Fragment {
         lm.setStackFromEnd(true);
         rvChat.setLayoutManager(lm);
         rvChat.setAdapter(adapter);
+
+        rvChat.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            if (bottom < oldBottom && messages.size() > 0) {
+                rvChat.post(() -> rvChat.smoothScrollToPosition(messages.size() - 1));
+            }
+        });
     }
 
     private void setupInput() {

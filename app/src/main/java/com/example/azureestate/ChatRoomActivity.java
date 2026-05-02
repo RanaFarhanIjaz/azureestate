@@ -119,6 +119,12 @@ public class ChatRoomActivity extends AppCompatActivity {
         lm.setStackFromEnd(true);
         rvChatMessages.setLayoutManager(lm);
         rvChatMessages.setAdapter(adapter);
+
+        rvChatMessages.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            if (bottom < oldBottom && messageList.size() > 0) {
+                rvChatMessages.post(() -> rvChatMessages.smoothScrollToPosition(messageList.size() - 1));
+            }
+        });
     }
 
     private void setupClickListeners() {

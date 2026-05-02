@@ -2,6 +2,8 @@ package com.example.azureestate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +18,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class HomeFragment extends Fragment
         implements SupabaseManager.RealtimeListener {
 
-    private RecyclerView rvProperties;
+    private RecyclerView rvProperties, rvStocks;
     private LinearLayout llLoadingState, llEmptyState;
     private LinearLayout catHouses, catApartments, catCondos, catVillas;
     private String selectedCategory = "ALL";
+
 
     private final List<SupabaseManager.ListingData> allListings      = new ArrayList<>();
     private final List<SupabaseManager.ListingData> filteredListings = new ArrayList<>();
@@ -46,12 +52,15 @@ public class HomeFragment extends Fragment
         bindViews(view);
         setupCategoryFilters();
         setupAdapter();
+        setupStockAdapter();
         loadListings();
+        loadStocks();
         supabase.subscribeToListings(this);
     }
 
     private void bindViews(View v) {
         rvProperties   = v.findViewById(R.id.rvProperties);
+        rvStocks       = v.findViewById(R.id.rvStocks);
         llLoadingState = v.findViewById(R.id.llLoadingState);
         llEmptyState   = v.findViewById(R.id.llEmptyState);
         catHouses      = v.findViewById(R.id.catHouses);
@@ -63,7 +72,7 @@ public class HomeFragment extends Fragment
         if (ivMessages != null) {
             ivMessages.setOnClickListener(vw -> {
                 if (getActivity() instanceof MainActivity) {
-                    ((MainActivity) getActivity()).selectTab(3);
+                    ((MainActivity) getActivity()).navigateToMessages();
                 }
             });
         }
@@ -76,7 +85,7 @@ public class HomeFragment extends Fragment
                         .withEndAction(() -> ivAvatar.animate().scaleX(1f).scaleY(1f).setDuration(80).start())
                         .start();
                 if (getActivity() instanceof MainActivity) {
-                    ((MainActivity) getActivity()).selectTab(5);
+                    ((MainActivity) getActivity()).selectTab(4);
                 }
             });
         }
@@ -161,6 +170,29 @@ public class HomeFragment extends Fragment
         rvProperties.setNestedScrollingEnabled(false);
     }
 
+    private void setupStockAdapter() {
+        if (rvStocks == null) return;
+        rvStocks.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+    }
+
+    private void loadStocks() {
+        StockMarketManager.getInstance().fetchTopStocks(new StockMarketManager.StockCallback() {
+            @Override
+            public void onSuccess(List<com.example.azureestate.models.StockModel> stocks) {
+                if (!isAdded() || rvStocks == null) return;
+                com.example.azureestate.adapters.StockAdapter stockAdapter = new com.example.azureestate.adapters.StockAdapter(stocks);
+                rvStocks.setAdapter(stockAdapter);
+                rvStocks.setAlpha(0f);
+                rvStocks.animate().alpha(1f).setDuration(500).start();
+            }
+
+            @Override
+            public void onError(String error) {
+                // Silently fail or log
+            }
+        });
+    }
+
     private void loadListings() {
         showLoading(true);
         SupabaseManager.FetchParams params = new SupabaseManager.FetchParams();
@@ -235,4 +267,5 @@ public class HomeFragment extends Fragment
             adapter.notifyDataSetChanged();
         }
     }
+
 }

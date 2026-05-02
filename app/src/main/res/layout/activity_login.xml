@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F0F2F5">
 
-    <!-- Top Navigation Bar -->
+
     <TextView
         android:id="@+id/tvAppName"
         android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="681dp"
             android:orientation="vertical"
             android:padding="28dp">
 
@@ -59,38 +59,38 @@
                 android:id="@+id/tvWelcome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Welcome to The\nEstate"
-                android:textColor="#0D1B2A"
-                android:textSize="30sp"
+                android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/playfair_display_bold"
                 android:gravity="center"
-                android:layout_gravity="center_horizontal"
-                android:lineSpacingMultiplier="1.15"/>
+                android:lineSpacingMultiplier="1.15"
+                android:text="Welcome to The\nEstate"
+                android:textColor="#0D1B2A"
+                android:textSize="30sp" />
 
             <!-- Subtitle -->
             <TextView
                 android:id="@+id/tvSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enter your credentials to access your portal"
-                android:textColor="#8A9BB0"
-                android:textSize="13sp"
-                android:fontFamily="@font/montserrat_regular"
-                android:gravity="center"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="30dp"/>
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:gravity="center"
+                android:text="Enter your credentials to access your portal"
+                android:textColor="#8A9BB0"
+                android:textSize="13sp" />
 
             <!-- Email Label -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EMAIL ADDRESS"
-                android:textColor="#7A8899"
-                android:textSize="10sp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/montserrat_semibold"
                 android:letterSpacing="0.15"
-                android:layout_marginBottom="8dp"/>
+                android:text="EMAIL ADDRESS"
+                android:textColor="#7A8899"
+                android:textSize="10sp" />
 
             <!-- Email Field -->
             <com.google.android.material.textfield.TextInputLayout
@@ -98,52 +98,52 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
                 app:boxBackgroundColor="#F4F6F8"
-                app:boxStrokeColor="@color/transparent"
-                app:boxStrokeWidth="0dp"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
                 app:boxCornerRadiusBottomEnd="12dp"
-                android:layout_marginBottom="18dp">
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxStrokeColor="@color/transparent"
+                app:boxStrokeWidth="0dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:textColorHint="#AABBCC"
-                    android:textSize="14sp"
+                    android:background="@drawable/input_background"
                     android:fontFamily="@font/montserrat_regular"
                     android:inputType="textEmailAddress"
-                    android:background="@drawable/input_background"/>
+                    android:textColorHint="#AABBCC"
+                    android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Password Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="8dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:letterSpacing="0.15"
                     android:text="PASSWORD"
                     android:textColor="#7A8899"
-                    android:textSize="10sp"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:letterSpacing="0.15"/>
+                    android:textSize="10sp" />
 
                 <TextView
                     android:id="@+id/tvForgotPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
                     android:text="Forgot password?"
                     android:textColor="#3DB8A8"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/montserrat_medium"/>
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <!-- Password Field -->
@@ -152,25 +152,24 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="22dp"
                 app:boxBackgroundColor="#F4F6F8"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
                 app:boxStrokeColor="@color/transparent"
                 app:boxStrokeWidth="0dp"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp"
-                app:passwordToggleEnabled="true"
-                android:layout_marginBottom="22dp">
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:hint="••••••••"
-                    android:textColorHint="#AABBCC"
-                    android:textSize="16sp"
+                    android:background="@drawable/input_background"
                     android:inputType="textPassword"
-                    android:background="@drawable/input_background"/>
+                    android:textColorHint="#AABBCC"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Sign In Button -->
@@ -178,69 +177,69 @@
                 android:id="@+id/btnSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/btn_sign_in"
+                android:fontFamily="@font/montserrat_semibold"
                 android:text="Sign In"
                 android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:fontFamily="@font/montserrat_semibold"
-                android:background="@drawable/btn_sign_in"
-                android:layout_marginBottom="24dp"/>
+                android:textSize="16sp" />
 
             <!-- OR divider -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginBottom="24dp"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="24dp">
+                android:orientation="horizontal">
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="1"
-                    android:background="#E8EBF0"/>
+                    android:background="#E8EBF0" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="OR CONTINUE WITH"
-                    android:textColor="#9BAABB"
-                    android:textSize="10sp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
                     android:fontFamily="@font/montserrat_semibold"
                     android:letterSpacing="0.12"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"/>
+                    android:text="OR CONTINUE WITH"
+                    android:textColor="#9BAABB"
+                    android:textSize="10sp" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="1"
-                    android:background="#E8EBF0"/>
+                    android:background="#E8EBF0" />
             </LinearLayout>
 
             <!-- Social Buttons Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal">
 
                 <!-- Google Button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnGoogle"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
+                    android:layout_height="62dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:fontFamily="@font/montserrat_medium"
                     android:text="Sign in with Google"
                     android:textColor="#0D1B2A"
                     android:textSize="14sp"
-                    android:fontFamily="@font/montserrat_medium"
+                    app:cornerRadius="12dp"
                     app:icon="@drawable/ic_google"
-                    app:iconTint="@null"
                     app:iconGravity="textStart"
                     app:iconPadding="12dp"
-                    android:backgroundTint="#FFFFFF"
+                    app:iconTint="@null"
                     app:strokeColor="#E0E8F0"
-                    app:strokeWidth="1dp"
-                    app:cornerRadius="12dp"/>
+                    app:strokeWidth="1dp" />
             </LinearLayout>
 
             <!-- Apply for Membership -->
@@ -249,10 +248,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Don't have an account? Apply for Membership"
-                android:textSize="13sp"
                 android:fontFamily="@font/montserrat_regular"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:text="Don't have an account? Apply for Membership"
+                android:textSize="13sp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

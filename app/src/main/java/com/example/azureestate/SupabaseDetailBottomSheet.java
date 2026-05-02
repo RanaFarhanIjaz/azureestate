@@ -19,6 +19,11 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class SupabaseDetailBottomSheet extends BottomSheetDialogFragment {
 
@@ -125,6 +130,102 @@ public class SupabaseDetailBottomSheet extends BottomSheetDialogFragment {
                             Toast.LENGTH_SHORT).show();
                 }
             });
+        }
+        
+        setupMortgageCalculator(view);
+    }
+
+    private void setupMortgageCalculator(View view) {
+        EditText etDownPct = view.findViewById(R.id.etCalcDownPayment);
+        EditText etInterest = view.findViewById(R.id.etCalcInterest);
+        EditText etTerm = view.findViewById(R.id.etCalcTerm);
+        EditText etIncome = view.findViewById(R.id.etCalcIncome);
+
+        if (etDownPct == null) return;
+
+        TextWatcher watcher = new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override public void afterTextChanged(Editable s) { calculateMortgage(view); }
+        };
+
+        etDownPct.addTextChangedListener(watcher);
+        etInterest.addTextChangedListener(watcher);
+        etTerm.addTextChangedListener(watcher);
+        etIncome.addTextChangedListener(watcher);
+
+        // Initial calculation
+        calculateMortgage(view);
+    }
+
+    private void calculateMortgage(View view) {
+        try {
+            EditText etDownPct = view.findViewById(R.id.etCalcDownPayment);
+            EditText etInterest = view.findViewById(R.id.etCalcInterest);
+            EditText etTerm = view.findViewById(R.id.etCalcTerm);
+            EditText etIncome = view.findViewById(R.id.etCalcIncome);
+
+            double price = 0;
+            try {
+                price = Double.parseDouble(listing.price.replaceAll("[^0-9.]", ""));
+            } catch (Exception e) {}
+            double downPct = Double.parseDouble(etDownPct.getText().toString().isEmpty() ? "0" : etDownPct.getText().toString());
+            double interest = Double.parseDouble(etInterest.getText().toString().isEmpty() ? "0" : etInterest.getText().toString());
+            int years = Integer.parseInt(etTerm.getText().toString().isEmpty() ? "0" : etTerm.getText().toString());
+            double income = Double.parseDouble(etIncome.getText().toString().isEmpty() ? "0" : etIncome.getText().toString());
+
+            double downAmt = price * (downPct / 100.0);
+            double loanAmt = price - downAmt;
+
+            double monthlyRate = (interest / 100.0) / 12.0;
+            int nPayments = years * 12;
+
+            double monthlyPI = 0;
+            if (monthlyRate > 0 && nPayments > 0) {
+                monthlyPI = loanAmt * (monthlyRate * Math.pow(1 + monthlyRate, nPayments)) / (Math.pow(1 + monthlyRate, nPayments) - 1);
+            } else if (nPayments > 0) {
+                monthlyPI = loanAmt / nPayments;
+            }
+
+            double totalInterest = (monthlyPI * nPayments) - loanAmt;
+            if (totalInterest < 0) totalInterest = 0;
+
+            double monthlyTax = (price * 0.012) / 12.0;
+            double monthlyIns = (price * 0.004) / 12.0;
+            double totalMonthly = monthlyPI + monthlyTax + monthlyIns;
+
+            double monthlyIncome = income / 12.0;
+            double dti = (monthlyIncome > 0) ? (totalMonthly / monthlyIncome) * 100.0 : 0;
+
+            NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
+            currency.setMaximumFractionDigits(0);
+
+            setText(view, R.id.tvCalcMonthlyPayment, currency.format(totalMonthly) + "/mo");
+            setText(view, R.id.tvCalcPI, currency.format(monthlyPI) + "/mo");
+            setText(view, R.id.tvCalcTax, currency.format(monthlyTax) + "/mo");
+            setText(view, R.id.tvCalcIns, currency.format(monthlyIns) + "/mo");
+            
+            setText(view, R.id.tvCalcDownAmt, currency.format(downAmt));
+            setText(view, R.id.tvCalcLoanAmt, currency.format(loanAmt));
+            setText(view, R.id.tvCalcTotalInterest, currency.format(totalInterest));
+            setText(view, R.id.tvCalcDti, String.format(Locale.US, "%.1f%%", dti));
+
+            TextView tvAffordability = view.findViewById(R.id.tvCalcAffordability);
+            if (dti <= 28) {
+                tvAffordability.setText("Affordability: Comfortable");
+                tvAffordability.setTextColor(0xFF3DB8A8);
+                tvAffordability.setBackgroundColor(0xFFE0F2F1);
+            } else if (dti <= 43) {
+                tvAffordability.setText("Affordability: Stretched (Edge of approval)");
+                tvAffordability.setTextColor(0xFFF57C00);
+                tvAffordability.setBackgroundColor(0xFFFFF3E0);
+            } else {
+                tvAffordability.setText("Affordability: Unlikely to be approved");
+                tvAffordability.setTextColor(0xFFD32F2F);
+                tvAffordability.setBackgroundColor(0xFFFFEBEE);
+            }
+
+        } catch (Exception ignored) {
         }
     }
 

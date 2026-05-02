@@ -16,10 +16,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Nav tabs - 6 tabs
-    private LinearLayout navDiscover, navFavorites, navSearch, navMessages, navAiChat, navProfile;
-    private ImageView    ivNavDiscover, ivNavFavorites, ivNavSearch, ivNavMessages, ivNavAiChat, ivNavProfile;
-    private TextView     tvNavDiscover, tvNavFavorites, tvNavSearch, tvNavMessages, tvNavAiChat, tvNavProfile;
+    // Nav tabs - 5 tabs
+    private LinearLayout navDiscover, navFavorites, navSearch, navAiChat, navProfile;
+    private ImageView    ivNavDiscover, ivNavFavorites, ivNavSearch, ivNavAiChat, ivNavProfile;
+    private TextView     tvNavDiscover, tvNavFavorites, tvNavSearch, tvNavAiChat, tvNavProfile;
     private TextView     tvAiChatBadge;  // Badge for AI Chat
 
     // FAB
@@ -51,21 +51,18 @@ public class MainActivity extends AppCompatActivity {
         navDiscover   = findViewById(R.id.navDiscover);
         navFavorites  = findViewById(R.id.navFavorites);
         navSearch     = findViewById(R.id.navSearch);
-        navMessages   = findViewById(R.id.navMessages);
         navAiChat     = findViewById(R.id.navAiChat);
         navProfile    = findViewById(R.id.navProfile);
 
         ivNavDiscover  = findViewById(R.id.ivNavDiscover);
         ivNavFavorites = findViewById(R.id.ivNavFavorites);
         ivNavSearch    = findViewById(R.id.ivNavSearch);
-        ivNavMessages  = findViewById(R.id.ivNavMessages);
         ivNavAiChat    = findViewById(R.id.ivNavAiChat);
         ivNavProfile   = findViewById(R.id.ivNavProfile);
 
         tvNavDiscover  = findViewById(R.id.tvNavDiscover);
         tvNavFavorites = findViewById(R.id.tvNavFavorites);
         tvNavSearch    = findViewById(R.id.tvNavSearch);
-        tvNavMessages  = findViewById(R.id.tvNavMessages);
         tvNavAiChat    = findViewById(R.id.tvNavAiChat);
         tvNavProfile   = findViewById(R.id.tvNavProfile);
 
@@ -79,9 +76,8 @@ public class MainActivity extends AppCompatActivity {
         navDiscover.setOnClickListener(v -> selectTab(0));
         navFavorites.setOnClickListener(v -> selectTab(1));
         navSearch.setOnClickListener(v -> selectTab(2));
-        navMessages.setOnClickListener(v -> selectTab(3));
-        navAiChat.setOnClickListener(v -> selectTab(4));
-        navProfile.setOnClickListener(v -> selectTab(5));
+        navAiChat.setOnClickListener(v -> selectTab(3));
+        navProfile.setOnClickListener(v -> selectTab(4));
     }
 
     private void setupFab() {
@@ -121,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
         switch (tab) {
             case 1:  fragment = new FavoritesFragment(); break;
             case 2:  fragment = new SearchFragment();    break;
-            case 3:  fragment = new MessagesFragment();  break;
-            case 4:  fragment = new AiChatFragment();    break;
-            case 5:  fragment = new ProfileFragment();   break;
+            case 3:  fragment = new AiChatFragment();    break;
+            case 4:  fragment = new ProfileFragment();   break;
+            case 10: fragment = new MessagesFragment();  break;
             default: fragment = new HomeFragment();      break;
         }
 
@@ -145,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
         setNavItem(ivNavDiscover,  tvNavDiscover,  false);
         setNavItem(ivNavFavorites, tvNavFavorites, false);
         setNavItem(ivNavSearch,    tvNavSearch,    false);
-        setNavItem(ivNavMessages,  tvNavMessages,  false);
         setNavItem(ivNavAiChat,    tvNavAiChat,    false);
         setNavItem(ivNavProfile,   tvNavProfile,   false);
 
@@ -154,13 +149,12 @@ public class MainActivity extends AppCompatActivity {
             case 0: setNavItem(ivNavDiscover,  tvNavDiscover,  true); break;
             case 1: setNavItem(ivNavFavorites, tvNavFavorites, true); break;
             case 2: setNavItem(ivNavSearch,    tvNavSearch,    true); break;
-            case 3: setNavItem(ivNavMessages,  tvNavMessages,  true); break;
-            case 4: setNavItem(ivNavAiChat,    tvNavAiChat,    true); break;
-            case 5: setNavItem(ivNavProfile,   tvNavProfile,   true); break;
+            case 3: setNavItem(ivNavAiChat,    tvNavAiChat,    true); break;
+            case 4: setNavItem(ivNavProfile,   tvNavProfile,   true); break;
         }
 
         // Bounce the selected icon
-        View[] icons = {ivNavDiscover, ivNavFavorites, ivNavSearch, ivNavMessages, ivNavAiChat, ivNavProfile};
+        View[] icons = {ivNavDiscover, ivNavFavorites, ivNavSearch, ivNavAiChat, ivNavProfile};
         if (selectedTab < icons.length && icons[selectedTab] != null) {
             bounceIcon(icons[selectedTab]);
         }
@@ -168,11 +162,11 @@ public class MainActivity extends AppCompatActivity {
         // Hide/show FAB: only visible on Home, Favorites, Search
         boolean showFab = (selectedTab == 0 || selectedTab == 1 || selectedTab == 2);
         if (fabUpload != null) {
-            fabUpload.animate().scaleX(showFab ? 1f : 0f)
-                    .scaleY(showFab ? 1f : 0f)
-                    .setDuration(180)
-                    .setInterpolator(new OvershootInterpolator(1.5f))
-                    .start();
+            if (showFab) {
+                fabUpload.show();
+            } else {
+                fabUpload.hide();
+            }
         }
     }
 
@@ -218,10 +212,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void navigateToMessages() {
-        selectTab(3);
+        selectTab(10); // Hidden messages tab
     }
 
     public void navigateToAiChat() {
-        selectTab(4);
+        selectTab(3);
     }
 }

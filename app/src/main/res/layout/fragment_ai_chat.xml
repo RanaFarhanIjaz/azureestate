@@ -155,6 +155,7 @@
         android:paddingEnd="16dp"
         android:paddingTop="10dp"
         android:paddingBottom="24dp"
+        android:layout_marginBottom="95dp"
         android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

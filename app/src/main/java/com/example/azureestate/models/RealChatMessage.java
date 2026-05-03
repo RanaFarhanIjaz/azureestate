@@ -44,3 +44,4 @@ public class RealChatMessage {
         return sdf.format(new Date(timestamp));
     }
 }
+

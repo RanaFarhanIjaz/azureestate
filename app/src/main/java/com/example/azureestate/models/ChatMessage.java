@@ -22,3 +22,4 @@ public class ChatMessage {
     public String getTime()  { return time; }
     public void setText(String text) { this.text = text; }
 }
+

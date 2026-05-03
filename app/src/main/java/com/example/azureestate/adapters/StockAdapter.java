@@ -62,3 +62,4 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> 
         }
     }
 }
+

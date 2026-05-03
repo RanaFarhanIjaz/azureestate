@@ -511,7 +511,7 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:paddingTop="12dp"
-            android:paddingBottom="28dp"
+            android:paddingBottom="42dp"
             android:weightSum="2">
 
             <!-- 📞 Call Owner -->
@@ -521,15 +521,15 @@
                 android:layout_height="52dp"
                 android:layout_weight="1"
                 android:text="Call Owner"
-                android:textColor="#0D1B2A"
+                android:textColor="#3DB8A8"
                 android:textSize="14sp"
                 android:textAllCaps="false"
                 android:fontFamily="@font/montserrat_semibold"
-                android:background="@drawable/btn_outline_dark"
+                android:background="@drawable/btn_outline_teal"
                 app:backgroundTint="@null"
                 android:layout_marginEnd="10dp"
                 app:icon="@drawable/ic_call"
-                app:iconTint="#0D1B2A"
+                app:iconTint="#3DB8A8"
                 app:iconGravity="textStart"
                 app:iconPadding="8dp"/>
 
@@ -544,7 +544,7 @@
                 android:textSize="14sp"
                 android:textAllCaps="false"
                 android:fontFamily="@font/montserrat_semibold"
-                android:background="@drawable/btn_navy_rounded"
+                android:background="@drawable/btn_teal_rounded"
                 app:backgroundTint="@null"
                 app:icon="@drawable/ic_chat"
                 app:iconTint="#FFFFFF"

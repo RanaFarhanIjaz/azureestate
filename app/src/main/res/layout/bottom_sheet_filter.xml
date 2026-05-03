@@ -402,7 +402,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="#FFFFFF"
-        android:padding="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="42dp"
         android:elevation="8dp"
         android:weightSum="3">
 
@@ -412,10 +415,10 @@
             android:layout_height="52dp"
             android:layout_weight="1"
             android:text="Reset"
-            android:textColor="#0D1B2A"
+            android:textColor="#3DB8A8"
             android:textSize="14sp"
             android:fontFamily="@font/montserrat_semibold"
-            android:background="@drawable/btn_outline_dark"
+            android:background="@drawable/btn_outline_teal"
             app:backgroundTint="@null"
             android:layout_marginEnd="10dp"/>
 
@@ -428,7 +431,7 @@
             android:textColor="#FFFFFF"
             android:textSize="14sp"
             android:fontFamily="@font/montserrat_semibold"
-            android:background="@drawable/btn_sign_in"
+            android:background="@drawable/btn_teal_rounded"
             app:backgroundTint="@null"/>
     </LinearLayout>
 

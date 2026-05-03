@@ -21,7 +21,7 @@
 
         <!-- Splash Activity (LAUNCHER) -->
         <activity
-            android:name=".SplashActivity"
+            android:name=".home.SplashActivity"
             android:theme="@style/Theme.AzureEstate.Splash"
             android:exported="true">
             <intent-filter>
@@ -32,46 +32,46 @@
 
         <!-- Login Activity -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".auth.LoginActivity"
             android:theme="@style/Theme.AzureEstate"
             android:exported="false" />
 
         <!-- Main Activity (after login) -->
         <activity
-            android:name=".MainActivity"
+            android:name=".home.MainActivity"
             android:theme="@style/Theme.AzureEstate"
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
 
         <activity
-            android:name=".SignUpActivity"
+            android:name=".auth.SignUpActivity"
             android:theme="@style/Theme.AzureEstate"
             android:exported="false" />
 
         <activity
-            android:name=".UploadPropertyActivity"
+            android:name=".property.UploadPropertyActivity"
             android:theme="@style/Theme.AzureEstate"
             android:windowSoftInputMode="adjustResize"
             android:exported="false"/>
 
         <activity
-            android:name=".ChatRoomActivity"
+            android:name=".chat.ChatRoomActivity"
             android:theme="@style/Theme.AzureEstate"
             android:windowSoftInputMode="adjustResize"
             android:exported="false"/>
 
         <activity
-            android:name=".LegalActivity"
+            android:name=".legal.LegalActivity"
             android:theme="@style/Theme.AzureEstate"
             android:exported="false"/>
 
         <activity
-            android:name=".ContactSalesActivity"
+            android:name=".data.ContactSalesActivity"
             android:theme="@style/Theme.AzureEstate"
             android:exported="false"/>
 
         <activity
-            android:name=".PricePredictorActivity"
+            android:name=".ai.PricePredictorActivity"
             android:theme="@style/Theme.AzureEstate"
             android:windowSoftInputMode="adjustResize"
             android:exported="false"/>

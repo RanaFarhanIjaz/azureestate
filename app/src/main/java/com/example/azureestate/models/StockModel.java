@@ -24,3 +24,4 @@ public class StockModel {
     public double getChangePercent() { return changePercent; }
     public String getMarketCap() { return marketCap; }
 }
+

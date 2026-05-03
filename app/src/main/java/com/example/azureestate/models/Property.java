@@ -92,3 +92,4 @@ public class Property {
     public void setPhotos(List<String> photos) { this.photos = photos; }
     public void setStatus(String status) { this.status = status; }
 }
+
